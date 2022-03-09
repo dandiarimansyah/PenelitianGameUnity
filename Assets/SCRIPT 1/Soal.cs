@@ -164,6 +164,25 @@ public class Soal : MonoBehaviour
 
     }
 
+    public void updateAnswer2()
+    {        
+        Vector3 PositionAngka3 = result.transform.position;
+        Vector3 PositionBuah3 = imageSoal3.transform.position;
+        if(answerValue!=1)
+        {
+            answerValue --;
+        }
+        
+        Destroy(result.gameObject);
+        GameObject angka3 = Instantiate(m_Angka[answerValue-1], PositionAngka3, Quaternion.identity);
+        result = angka3;
+
+        Destroy(imageSoal3.gameObject);
+        GameObject buah3 = Instantiate(m_PapanBuah2[answerValue-1], PositionBuah3, Quaternion.identity);
+        imageSoal3 = buah3;
+
+    }
+
     // public void jawab(){
     //     int jawaban = int.Parse(EventSystem.current.currentSelectedGameObject.GetComponentInChildren<Text>().text);
     //     Debug.Log(jawaban);
