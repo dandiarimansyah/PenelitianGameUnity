@@ -7,6 +7,8 @@ public class DD_Apel_Keranjang : MonoBehaviour
     [SerializeField] private AudioSource _source;
     [SerializeField] private AudioClip _ambil, _lempar;
 
+    [SerializeField] private Soal soal;
+
     private bool _angkat;
     private Vector2 _offset, _originalPosition;
     private Rigidbody2D rb;
@@ -35,11 +37,14 @@ public class DD_Apel_Keranjang : MonoBehaviour
     }
     private void OnMouseUp()
     {
+        if(Vector3.Distance(transform.position,soal.imageSoal3.transform.position) < 3)
+        {
+            soal.updateAnswer();
+        }
         transform.position = _originalPosition;
         _angkat = false;
         _source.PlayOneShot(_lempar);
     }
-
 
     Vector2 GetMousePos()
     {
