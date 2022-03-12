@@ -30,7 +30,7 @@ public class DD_Apel_KeranjangOut : MonoBehaviour
 
     void OnMouseDown()
     {
-        if(soal.answerValue != 1)
+        if(soal.answerValue != 0)
         {
             SpriteRenderer  sprite = GetComponent<SpriteRenderer>();
 
@@ -38,7 +38,7 @@ public class DD_Apel_KeranjangOut : MonoBehaviour
             sprite.sortingLayerName = "Default";
 
             _angkat = true;
-            soal.updateAnswer2();
+            soal.kurangApel();
             _source.PlayOneShot(_ambil);
             _offset = GetMousePos() - (Vector2)transform.position;
         }
@@ -47,10 +47,11 @@ public class DD_Apel_KeranjangOut : MonoBehaviour
     {
         if(_angkat)
         {
-            if(Vector3.Distance(transform.position,soal.imageSoal3.transform.position) < 3 )
-                {
-                    soal.updateAnswer();
-                }
+            if(Vector3.Distance(transform.position,soal.BoxApel3.transform.position) < 3 )
+            {
+                soal.tambahApel();
+            }
+
             SpriteRenderer  sprite = GetComponent<SpriteRenderer>();
             sprite.sortingOrder = 0;
             sprite.sortingLayerName = "HiddenApel";

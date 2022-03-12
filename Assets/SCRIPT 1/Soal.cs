@@ -1,77 +1,101 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Soal : MonoBehaviour
 {
   public GameObject originalGameObject;
     //Tempat soal angka
-    public GameObject var1;  
-    public GameObject operand;  
-    public GameObject var2;
+    public GameObject angkaDummy1;  
+    public GameObject angkaDummy2;
     public GameObject result;
+    public GameObject operand;  
 
     //Tempat soal gambar buah
-    public GameObject imageSoal1;
-    public GameObject imageSoal2; 
-    public GameObject imageSoal3;
-    
+    public GameObject BoxApel1;
+    public GameObject BoxApel2; 
+    public GameObject BoxApel3;
+
     //Uncomment bawah buat nanti kalau ada papan skor
     /*public GameObject papanSkor;*/
 
-    //buat munculin feedback kalau salah atau benar atau game selesai
-    public GameObject feedBenar,feedSalah,selesai;  
-    //Audio kalau salah benar dan skor tinggi baru
+    //Permainan Selesai
+    [SerializeField] private GameObject GameOver;
+
+    //Audio Benar, Salah, New High Score
     public AudioSource m_Benar,m_Salah,m_SkorTinggiBaru;
 
-    //Nilai pertama soal
+    //Angka Pertama
     private int lowFirstValue = 1;
     private int highFirstValue = 9;
     private int firstValue;
 
-    //Nilai kedua soal
+    //Angka Kedua
     private int lowSecondValue = 1;
     private int highSecondValue = 9;
     private int SecondValue;
 
     //Jawaban soal
     public int finalValue;
-    public int answerValue=1;
+    public int answerValue;
+    public int jumlahSoal = 10;
+    private int countSoal = 0;
 
-    //List sprite angka ama buah
+    //List sprite angka & buah
     public GameObject[] m_Angka;
     public GameObject[] m_PapanBuah;
     public GameObject[] m_PapanBuah2;
     public Sprite[] m_Operand;
 
-
-
     //Attribute buat operand ama skor
-    public bool isAdd = false;
-    public bool isSub = false;
-    private int skor = 0;
-    private int skorTinggi=0;
-    private bool isNewHScore = false;
-    
-    
+    public bool isAdd;
+    public bool isSub;
+
+    // Poin
+    public int poinBenar = 0;
+    public int poinSalah = 0;
+    public int highscoreBenar = 0;
+    public bool isNewHScore = false;
     
     // Start is called before the first frame update
     void Start()
     {
-        // if(PlayerPrefs.HasKey("skorTinggi"))
-        // {
-        //     skorTinggi = PlayerPrefs.GetInt("skorTinggi");
-        // }
-        generateSoal();
-        isiAngkaSoal();
-        isiImageSoal();
+        mulaiGame();
+    }
+
+    public void ResetGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void mulaiGame()
+    {
+        if (countSoal < jumlahSoal)
+        {
+            answerValue = 0;
+            isAdd = false;
+            isSub = false;
+
+            generateSoal();
+            isiAngkaSoal();
+            isiImageSoal();
+
+            countSoal++;
+        }
+        else
+        {
+            GameOver.SetActive(true);
+        }
+
     }
 
     public void generateSoal()
     {
         var i = Random.Range(0, 2);
 
-        //Kalau +
+        //Penjumlahan
         if (i == 0)
         {
             firstValue = Random.Range(lowFirstValue, highFirstValue);
@@ -81,11 +105,11 @@ public class Soal : MonoBehaviour
             isAdd = true;
         }
 
-        //Kalau -
+        //Pengurangan
         if (i == 1)
         {
             firstValue = Random.Range(lowFirstValue+1, highFirstValue);
-            highSecondValue = firstValue-1;
+            highSecondValue = firstValue;
             SecondValue = Random.Range(lowSecondValue, highSecondValue);
             finalValue = firstValue - SecondValue;
             isSub = true;
@@ -95,21 +119,21 @@ public class Soal : MonoBehaviour
     public void isiAngkaSoal()
     {
         //Ambil posisi angka
-        Vector3 PositionAngka1 = var1.transform.position;
-        Vector3 PositionAngka2 = var2.transform.position;
+        Vector3 PositionAngka1 = angkaDummy1.transform.position;
+        Vector3 PositionAngka2 = angkaDummy2.transform.position;
         Vector3 PositionAngka3 = result.transform.position;
 
-        //Hapus prefab, inisiate prefab baru dengan posisi angka prefab dulu, jadikan prefab baru menjadi atribute var
-        Destroy(var1.gameObject);
-        GameObject angka1 = Instantiate(m_Angka[firstValue-1], PositionAngka1, Quaternion.identity);
-        var1 = angka1;
+        //Destroy Dummy, Initiate Prefab
+        Destroy(angkaDummy1.gameObject);
+        GameObject angka1 = Instantiate(m_Angka[firstValue], PositionAngka1, Quaternion.identity);
+        angkaDummy1 = angka1;
 
-        Destroy(var2.gameObject);
-        GameObject angka2 = Instantiate(m_Angka[SecondValue-1], PositionAngka2, Quaternion.identity);
-        var2 = angka2;
+        Destroy(angkaDummy2.gameObject);
+        GameObject angka2 = Instantiate(m_Angka[SecondValue], PositionAngka2, Quaternion.identity);
+        angkaDummy2 = angka2;
 
         Destroy(result.gameObject);
-        GameObject angka3 = Instantiate(m_Angka[answerValue-1], PositionAngka3, Quaternion.identity);
+        GameObject angka3 = Instantiate(m_Angka[answerValue], PositionAngka3, Quaternion.identity);
         result = angka3;
         
         //Operand
@@ -127,102 +151,65 @@ public class Soal : MonoBehaviour
     public void isiImageSoal()
     {
         //Ambil posisi buah
-        Vector3 PositionBuah1 = imageSoal1.transform.position;
-        Vector3 PositionBuah2 = imageSoal2.transform.position;
-        Vector3 PositionBuah3 = imageSoal3.transform.position;
+        Vector3 PositionBuah1 = BoxApel1.transform.position;
+        Vector3 PositionBuah2 = BoxApel2.transform.position;
+        Vector3 PositionBuah3 = BoxApel3.transform.position;
 
-        //Hapus prefab, inisiate prefab baru dengan posisi buah prefab dulu, jadikan prefab baru menjadi atribute var
-        Destroy(imageSoal1.gameObject);
-        GameObject buah1 = Instantiate(m_PapanBuah[firstValue-1], PositionBuah1, Quaternion.identity);
-        imageSoal1 = buah1;
+        //Destroy Dummy, Initiate Prefab
+        Destroy(BoxApel1.gameObject);
+        GameObject buah1 = Instantiate(m_PapanBuah[firstValue], PositionBuah1, Quaternion.identity);
+        BoxApel1 = buah1;
 
-        Destroy(imageSoal2.gameObject);
-        GameObject buah2 = Instantiate(m_PapanBuah[SecondValue-1], PositionBuah2, Quaternion.identity);
-        imageSoal2 = buah2;
+        Destroy(BoxApel2.gameObject);
+        GameObject buah2 = Instantiate(m_PapanBuah[SecondValue], PositionBuah2, Quaternion.identity);
+        BoxApel2 = buah2;
 
-        Destroy(imageSoal3.gameObject);
-        GameObject buah3 = Instantiate(m_PapanBuah2[answerValue-1], PositionBuah3, Quaternion.identity);
-        imageSoal3 = buah3;
+        Destroy(BoxApel3.gameObject);
+        GameObject buah3 = Instantiate(m_PapanBuah2[answerValue], PositionBuah3, Quaternion.identity);
+        BoxApel3 = buah3;
     }
 
-    public void updateAnswer()
+    public void tambahApel()
     {        
         Vector3 PositionAngka3 = result.transform.position;
-        Vector3 PositionBuah3 = imageSoal3.transform.position;
+        Vector3 PositionBuah3 = BoxApel3.transform.position;
+
+        //Maksimal 9 Apel
         if(answerValue!=9)
         {
             answerValue ++;
         }
         
         Destroy(result.gameObject);
-        GameObject angka3 = Instantiate(m_Angka[answerValue-1], PositionAngka3, Quaternion.identity);
+        GameObject angka3 = Instantiate(m_Angka[answerValue], PositionAngka3, Quaternion.identity);
         result = angka3;
 
-        Destroy(imageSoal3.gameObject);
-        GameObject buah3 = Instantiate(m_PapanBuah2[answerValue-1], PositionBuah3, Quaternion.identity);
-        imageSoal3 = buah3;
+        Destroy(BoxApel3.gameObject);
+        GameObject buah3 = Instantiate(m_PapanBuah2[answerValue], PositionBuah3, Quaternion.identity);
+        BoxApel3 = buah3;
 
     }
 
-    public void updateAnswer2()
+    public void kurangApel()
     {        
         Vector3 PositionAngka3 = result.transform.position;
-        Vector3 PositionBuah3 = imageSoal3.transform.position;
-        if(answerValue!=1)
+        Vector3 PositionBuah3 = BoxApel3.transform.position;
+
+        //Minimal 1 Apel
+        if(answerValue!=0)
         {
             answerValue --;
         }
         
         Destroy(result.gameObject);
-        GameObject angka3 = Instantiate(m_Angka[answerValue-1], PositionAngka3, Quaternion.identity);
+        GameObject angka3 = Instantiate(m_Angka[answerValue], PositionAngka3, Quaternion.identity);
         result = angka3;
 
-        Destroy(imageSoal3.gameObject);
-        GameObject buah3 = Instantiate(m_PapanBuah2[answerValue-1], PositionBuah3, Quaternion.identity);
-        imageSoal3 = buah3;
+        Destroy(BoxApel3.gameObject);
+        GameObject buah3 = Instantiate(m_PapanBuah2[answerValue], PositionBuah3, Quaternion.identity);
+        BoxApel3 = buah3;
 
     }
-
-    // public void jawab(){
-    //     int jawaban = int.Parse(EventSystem.current.currentSelectedGameObject.GetComponentInChildren<Text>().text);
-    //     Debug.Log(jawaban);
-    //     if (jawaban == finalValue) 
-    //     {   
-    //         m_Benar.Play();
-    //         feedBenar.SetActive(false);
-    //         feedBenar.SetActive(true);
-    //         skor+=5;
-    //         if(skor>skorTinggi)
-    //         {
-    //             isNewHScore = true;
-    //             skorTinggi=skor;
-    //             PlayerPrefs.SetInt("skorTinggi",skorTinggi);
-    //         }
-    //         papanSkor.GetComponentInChildren<Text>().text = skor.ToString();
-    //         isAdd = false;
-    //         isSub = false;
-    //         generateSoal();
-    //         isiTextSoal();
-    //         isiImageSoal();
-    //         isiJawabButton();
-    //     }
-    //     else{
-    //         m_Salah.Play();
-    //         Text[] textSelesai;
-    //         feedSalah.SetActive(false);
-    //         feedSalah.SetActive(true);
-    //         if(isNewHScore)
-    //         {
-    //             m_SkorTinggiBaru.Play();
-    //         }
-    //         selesai.SetActive(true);
-    //         textSelesai = selesai.GetComponentsInChildren<Text>();
-    //         string skorAkhir = "Skor : " + skor;
-    //         string skorTinggiAkhir = "Skor Tertinggi : " + skorTinggi;
-    //         textSelesai[1].text=skorAkhir;
-    //         textSelesai[2].text=skorTinggiAkhir;
-    //     }
-    // }
 
     // Update is called once per frame
     void Update()

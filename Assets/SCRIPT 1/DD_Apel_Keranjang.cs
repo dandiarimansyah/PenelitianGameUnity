@@ -37,9 +37,9 @@ public class DD_Apel_Keranjang : MonoBehaviour
     }
     private void OnMouseUp()
     {
-        if(Vector3.Distance(transform.position,soal.imageSoal3.transform.position) < 3)
+        if(Vector3.Distance(transform.position,soal.BoxApel3.transform.position) < 3)
         {
-            soal.updateAnswer();
+            soal.tambahApel();
         }
         transform.position = _originalPosition;
         _angkat = false;
