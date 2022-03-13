@@ -20,7 +20,6 @@ public class SubmitButton : MonoBehaviour
     {
         AlertBenar.SetActive(false);
         AlertSalah.SetActive(false);
-
     }
 
     // Update is called once per frame
@@ -59,7 +58,6 @@ public class SubmitButton : MonoBehaviour
 
         // Hapus Alert
         deleteAlert = true;
-
 
     }
 

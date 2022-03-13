@@ -23,8 +23,12 @@ public class Soal : MonoBehaviour
 
     //Permainan Selesai
     [SerializeField] private GameObject GameOver;
+    [SerializeField] private GameObject DeletedObject;
+    [SerializeField] private AudioSource _source;
+    [SerializeField] private AudioClip _gameover;
+
     public Text textNilaiAkhir;
-    //private int nilaiAkhir = 0;
+    public bool IsGameOver = false;
 
     //Audio Benar, Salah, New High Score
     public AudioSource m_Benar,m_Salah,m_SkorTinggiBaru;
@@ -98,7 +102,13 @@ public class Soal : MonoBehaviour
             //Atur NilaiAkhir
             textNilaiAkhir.text = nilaiAkhir.ToString();
 
+            //Hapus Tombol Submit
+            DeletedObject.SetActive(false);
+
+            //Muncul Papan Game Over
             GameOver.SetActive(true);
+            _source.PlayOneShot(_gameover);
+            
         }
 
     }
