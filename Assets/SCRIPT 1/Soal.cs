@@ -23,6 +23,8 @@ public class Soal : MonoBehaviour
 
     //Permainan Selesai
     [SerializeField] private GameObject GameOver;
+    public Text textNilaiAkhir;
+    //private int nilaiAkhir = 0;
 
     //Audio Benar, Salah, New High Score
     public AudioSource m_Benar,m_Salah,m_SkorTinggiBaru;
@@ -72,6 +74,7 @@ public class Soal : MonoBehaviour
 
     public void mulaiGame()
     {
+        //Mulai Awal & Ganti Soal
         if (countSoal < jumlahSoal)
         {
             answerValue = 0;
@@ -84,8 +87,17 @@ public class Soal : MonoBehaviour
 
             countSoal++;
         }
+
+        //Game Over
         else
         {
+            float totalPoin = poinBenar + poinSalah;
+            float nilaiAkhirF = (poinBenar / totalPoin) * 100;
+            int nilaiAkhir = (int)nilaiAkhirF;
+
+            //Atur NilaiAkhir
+            textNilaiAkhir.text = nilaiAkhir.ToString();
+
             GameOver.SetActive(true);
         }
 
