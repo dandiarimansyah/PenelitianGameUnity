@@ -13,7 +13,7 @@ public class PuzzleManager : MonoBehaviour
 
     void Start()
     {
-        //Spawn();
+        Spawn();
     }
 
     void Spawn()
@@ -27,7 +27,7 @@ public class PuzzleManager : MonoBehaviour
             
             var spawnPiece = Instantiate(listPiece[i], pieceParent.GetChild(i).position, Quaternion.identity);
 
-            //spawnPiece.Init(spawnSlot);
+            spawnPiece.Init(spawnSlot);
         }
 
     }

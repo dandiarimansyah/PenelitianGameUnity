@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PuzzlePieces : MonoBehaviour
 {
-    //[SerializeField] private SpriteRenderer _renderer;
+    [SerializeField] private SpriteRenderer _renderer;
 
     [SerializeField] private AudioSource _source;
     [SerializeField] private AudioClip _ambil, _lempar;
@@ -13,22 +13,21 @@ public class PuzzlePieces : MonoBehaviour
     private Vector2 _offset, _originalPosition;
     private PuzzleSlot puzzleSlot;
 
-    /*public void Init(PuzzleSlot slot)
+    public void Init(PuzzleSlot slot)
     {
-        _renderer.sprite = slot.Renderer.sprite;
+        //_renderer.sprite = slot.Renderer.sprite;
         puzzleSlot = slot;
-    }*/
+    }
 
     private void Awake()
     {
-        //rb = GetComponent<Rigidbody2D>();
         _originalPosition = transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!_placed) return;
+        if (_placed) return;
         if (!_angkat) return;
 
         var mousePosition = GetMousePos();
@@ -44,7 +43,7 @@ public class PuzzlePieces : MonoBehaviour
     }
     private void OnMouseUp()
     {
-        if (Vector2.Distance(transform.position, puzzleSlot.transform.position) < 3)
+        if (Vector2.Distance(transform.position, puzzleSlot.transform.position) < 1)
         {
             transform.position = puzzleSlot.transform.position;
             puzzleSlot.Placed();
