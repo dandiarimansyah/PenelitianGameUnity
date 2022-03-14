@@ -11,6 +11,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: Puzzle Pieces 2
       objectReference: {fileID: 0}
+    - target: {fileID: 3478493188829206472, guid: 2f9d1e67edc4f7b4cbfcec1ee35f6565, type: 3}
+      propertyPath: puzzleSlots.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3478493188829206472, guid: 2f9d1e67edc4f7b4cbfcec1ee35f6565, type: 3}
+      propertyPath: puzzleSlots.Array.data[0]
+      value: 
+      objectReference: {fileID: 2106484223778183535, guid: ef7288306b9209f4396d0f44ec9483c7, type: 3}
+    - target: {fileID: 3478493188829206472, guid: 2f9d1e67edc4f7b4cbfcec1ee35f6565, type: 3}
+      propertyPath: puzzleSlots.Array.data[1]
+      value: 
+      objectReference: {fileID: 2106484223778183535, guid: ef7288306b9209f4396d0f44ec9483c7, type: 3}
+    - target: {fileID: 3478493188829206472, guid: 2f9d1e67edc4f7b4cbfcec1ee35f6565, type: 3}
+      propertyPath: puzzleSlots.Array.data[2]
+      value: 
+      objectReference: {fileID: 2106484223778183535, guid: ef7288306b9209f4396d0f44ec9483c7, type: 3}
+    - target: {fileID: 3478493188829206472, guid: 2f9d1e67edc4f7b4cbfcec1ee35f6565, type: 3}
+      propertyPath: puzzleSlots.Array.data[3]
+      value: 
+      objectReference: {fileID: 2106484223778183535, guid: ef7288306b9209f4396d0f44ec9483c7, type: 3}
     - target: {fileID: 4837788092918361607, guid: 2f9d1e67edc4f7b4cbfcec1ee35f6565, type: 3}
       propertyPath: m_RootOrder
       value: 0
