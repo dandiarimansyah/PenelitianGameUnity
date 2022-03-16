@@ -11,9 +11,6 @@ public class PuzzleManager : MonoBehaviour
     [SerializeField] private List<PuzzleSlot> slotPrefabs;
     
     [SerializeField] private TextAsset txtKataHuruf;
-    [SerializeField] private TextAsset txtKata3Huruf;
-    [SerializeField] private TextAsset txtKata4Huruf;
-    [SerializeField] private TextAsset txtKata5Huruf;
     
     private List<PuzzlePieces> listPieces = new List<PuzzlePieces>();
     private List<PuzzleSlot> listSlots = new List<PuzzleSlot>();
@@ -61,28 +58,8 @@ public class PuzzleManager : MonoBehaviour
 
     void Spawn()
     {
-
-        //Randoming Jumlah Huruf Kata 3 sampai 5
-        int randomSumHuruf = Random.Range(3,6);
-        //sumPuzzle = randomSumHuruf;
-        
         //Ini tinggal diganti sesuaiin nilai randomSumHuruf tinggal pake if else;
-        //sumPuzzle = 4;
         var content = txtKataHuruf.text;
-
-        /*var content = "";
-        switch (sumPuzzle)
-        {
-            case 3:
-                content = txtKata3Huruf.text;
-                break;
-            case 4:
-                content = txtKata4Huruf.text;
-                break;
-            case 5:
-                content = txtKata5Huruf.text;
-                break;
-        }*/
 
         //Randoming Kata
         var AllWords = content.Split('\n');
@@ -93,7 +70,6 @@ public class PuzzleManager : MonoBehaviour
         //Jumlah Kata
         sumPuzzle = word.Length - 1;
 
-
         //Shuffling Susunan Kata
         char[] arraysShuffledWord = Shuffler(word); //U,D,U,K
         string shuffledWord = new string(arraysShuffledWord); //"UDUK"
@@ -102,40 +78,15 @@ public class PuzzleManager : MonoBehaviour
         //Convert string to array biar bisa di akses di looping bawah
         char[] arrayWord = word.ToCharArray(); //K,U,D,A
 
-        //kalau mau satu fungsi ini berarti buat variable prefabs buat 3,4,5 huruf terus var ini masukin if else yang atas
+
 
         var listSlot = slotPrefabs.Take(sumPuzzle).ToList();
         var listPiece = piecePrefabs.Take(sumPuzzle).ToList();
 
-        //List<PuzzleSlot> listSlot = new List<PuzzleSlot>();
-        //List<PuzzlePieces> listPiece = new List<PuzzlePieces>();
-
-
-        /*
-        switch (sumPuzzle)
-        {
-            case 3:
-                listSlot = slotPrefabs.Take(3).ToList();
-                listPiece = piecePrefabs.Take(3).ToList();
-                break;
-            case 4:
-                listSlot = slotPrefabs.Take(4).ToList();
-                listPiece = piecePrefabs.Take(4).ToList();
-                break;
-            case 5:
-                listSlot = slotPrefabs.Take(5).ToList();
-                listPiece = piecePrefabs.Take(5).ToList();
-                break;
-        }
-        */
-
-
         //spawning huruf
         for (int i = 0; i < arrayWord.Length-1; i++)
         {
-            Debug.Log(arraysShuffledWord[i]);
             var spawnSlot = Instantiate(listSlot[i], slotParent.GetChild(i).position, Quaternion.identity);
-            
             var spawnPiece = Instantiate(listPiece[i], pieceParent.GetChild(i).position, Quaternion.identity);
 
             //Ganti Sprite sesuai dengan kata yang digenerate;

@@ -1156,7 +1156,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &520484239
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3322,24 +3322,22 @@ MonoBehaviour:
   - {fileID: 2106484223778183535, guid: ef7288306b9209f4396d0f44ec9483c7, type: 3}
   - {fileID: 2106484223778183535, guid: 535d1124bf83d404ca9160b305133145, type: 3}
   - {fileID: 2106484223778183535, guid: 578a83343404cd447bb61841ee235e2c, type: 3}
-  txtKata3Huruf: {fileID: 4900000, guid: 7fc6c5e2fba18344ea6ddb22a2a78e06, type: 3}
-  txtKata4Huruf: {fileID: 4900000, guid: 39b40a6c5abd6da48b90677bddbd22a9, type: 3}
-  txtKata5Huruf: {fileID: 4900000, guid: db3977c21bec50f42af743eed6ef6e4c, type: 3}
+  txtKataHuruf: {fileID: 4900000, guid: ed4366cfd25bc6640ab0c74548040533, type: 3}
   slotParent: {fileID: 494498651}
   pieceParent: {fileID: 1394500810}
   posHewan: {fileID: 379633815}
   hewan: {fileID: 520484238}
   semuaHewan:
   - {fileID: 2135153550}
-  - {fileID: 1869084975}
-  - {fileID: 27640436}
-  - {fileID: 87456704}
   - {fileID: 686635718}
   - {fileID: 138572513}
   - {fileID: 1130018243}
-  - {fileID: 597215362}
   - {fileID: 619851964}
   - {fileID: 228881117}
+  - {fileID: 1869084975}
+  - {fileID: 27640436}
+  - {fileID: 87456704}
+  - {fileID: 597215362}
 --- !u!1 &1575201510
 GameObject:
   m_ObjectHideFlags: 0
