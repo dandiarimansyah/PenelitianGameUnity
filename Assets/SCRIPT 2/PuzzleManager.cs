@@ -10,6 +10,7 @@ public class PuzzleManager : MonoBehaviour
     [SerializeField] private List<PuzzlePieces> piecePrefabs;
     [SerializeField] private List<PuzzleSlot> slotPrefabs;
     
+    [SerializeField] private TextAsset txtKataHuruf;
     [SerializeField] private TextAsset txtKata3Huruf;
     [SerializeField] private TextAsset txtKata4Huruf;
     [SerializeField] private TextAsset txtKata5Huruf;
@@ -22,7 +23,9 @@ public class PuzzleManager : MonoBehaviour
     private bool isSpawned = false;
 
     //[SerializeField] private PuzzlePieces piecePrefabs;
-    [SerializeField] private Transform slotParent, pieceParent;
+    [SerializeField] private Transform slotParent, pieceParent, posHewan;
+    public GameObject hewan;
+    public GameObject[] semuaHewan;
 
     void Start()
     {
@@ -39,8 +42,8 @@ public class PuzzleManager : MonoBehaviour
     char[] Shuffler(string word)
     {
         char[] array = word.ToCharArray();
-        int n = array.Length-1;
-        for (int i = 0; i < n - 1; i++) 
+        int n = array.Length-1; //n=4
+        for (int i = 0; i < n - 1; i++) //0-3 
         {
             int rnd = Random.Range(i, n);
             tempChar = array[rnd];
@@ -61,13 +64,13 @@ public class PuzzleManager : MonoBehaviour
 
         //Randoming Jumlah Huruf Kata 3 sampai 5
         int randomSumHuruf = Random.Range(3,6);
-        sumPuzzle = randomSumHuruf;
-        //sumPuzzle = 4;
+        //sumPuzzle = randomSumHuruf;
         
         //Ini tinggal diganti sesuaiin nilai randomSumHuruf tinggal pake if else;
-        //var content = txtKata4Huruf.text;
+        //sumPuzzle = 4;
+        var content = txtKataHuruf.text;
 
-        var content = "";
+        /*var content = "";
         switch (sumPuzzle)
         {
             case 3:
@@ -79,28 +82,36 @@ public class PuzzleManager : MonoBehaviour
             case 5:
                 content = txtKata5Huruf.text;
                 break;
-        }
+        }*/
 
         //Randoming Kata
         var AllWords = content.Split('\n');
         List<string> listOfWords = new List<string>(AllWords);
-        string word = getRandomWord(listOfWords);
+        string word = getRandomWord(listOfWords); //Dapat urutan kata random
+        // word = KUDA
+
+        //Jumlah Kata
+        sumPuzzle = word.Length - 1;
+
 
         //Shuffling Susunan Kata
-        char[] arraysShuffledWord = Shuffler(word);
-        string shuffledWord = new string(arraysShuffledWord);
+        char[] arraysShuffledWord = Shuffler(word); //U,D,U,K
+        string shuffledWord = new string(arraysShuffledWord); //"UDUK"
         Debug.Log(shuffledWord);
 
         //Convert string to array biar bisa di akses di looping bawah
-        char[] arrayWord = word.ToCharArray();
+        char[] arrayWord = word.ToCharArray(); //K,U,D,A
 
         //kalau mau satu fungsi ini berarti buat variable prefabs buat 3,4,5 huruf terus var ini masukin if else yang atas
-        
-        //var listSlot = slotPrefabs.Take(0).ToList();
-        //var listPiece = piecePrefabs.Take(0).ToList();
-        List<PuzzleSlot> listSlot = new List<PuzzleSlot>();
-        List<PuzzlePieces> listPiece = new List<PuzzlePieces>();
 
+        var listSlot = slotPrefabs.Take(sumPuzzle).ToList();
+        var listPiece = piecePrefabs.Take(sumPuzzle).ToList();
+
+        //List<PuzzleSlot> listSlot = new List<PuzzleSlot>();
+        //List<PuzzlePieces> listPiece = new List<PuzzlePieces>();
+
+
+        /*
         switch (sumPuzzle)
         {
             case 3:
@@ -116,7 +127,7 @@ public class PuzzleManager : MonoBehaviour
                 listPiece = piecePrefabs.Take(5).ToList();
                 break;
         }
-
+        */
 
 
         //spawning huruf
@@ -138,8 +149,16 @@ public class PuzzleManager : MonoBehaviour
             Debug.Log("adding piece"+i);
         }
 
+        // Munculin gambar hewan
+        /*
+        Vector3 posHewan2 = hewan.transform.position;
 
-        foreach(PuzzlePieces piece in listPieces)
+        Destroy(hewan.gameObject);
+        GameObject gambarHewan = Instantiate(semuaHewan[0], posHewan2, Quaternion.identity);
+        hewan = gambarHewan;
+        */
+
+        foreach (PuzzlePieces piece in listPieces)
         {
             piece.setListSlot(listSlots);
         }
