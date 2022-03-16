@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PuzzleManager : MonoBehaviour
 {
@@ -15,25 +16,35 @@ public class PuzzleManager : MonoBehaviour
     private List<PuzzlePieces> listPieces = new List<PuzzlePieces>();
     private List<PuzzleSlot> listSlots = new List<PuzzleSlot>();
     private int sumPuzzle = 0;
+    private int urutanTerpilih = 0;
+    private int[] sudahMuncul;
 
     private char tempChar;
     private bool isSpawned = false;
+    public int jumlahSoal = 10;
+    private int countSoal = 0;
 
-    //[SerializeField] private PuzzlePieces piecePrefabs;
+
+    //Variabel GameOver
+    [SerializeField] private GameObject PapanGameOver;
+    [SerializeField] private GameObject[] DeletedObject;
+    [SerializeField] private AudioSource _source;
+    [SerializeField] private AudioClip _gameover;
+    private bool isGameOver = false;
+
+
     [SerializeField] private Transform slotParent, pieceParent, posHewan;
     public GameObject hewan;
     public GameObject[] semuaHewan;
 
     void Start()
     {
+        PapanGameOver.SetActive(false);
         Spawn();
     }
-
-    string getRandomWord(List<string> listWords)
+    public void ResetGame()
     {
-        int Length = listWords.Count;
-        int randomNumber = Random.Range(0, Length);
-        return listWords[randomNumber];
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     char[] Shuffler(string word)
@@ -56,16 +67,43 @@ public class PuzzleManager : MonoBehaviour
         return index;
     }
 
+    void PermainanSelesai()
+    {
+        //Hapus Object
+        /*for (int i = 0; i < DeletedObject.Length; i++)
+        {
+            Destroy(DeletedObject[i].gameObject);
+        }*/
+
+        //Muncul Papan Game Over
+        PapanGameOver.SetActive(true);
+        _source.PlayOneShot(_gameover);
+
+        isGameOver = true;
+    }
+
     void Spawn()
     {
+        //Permainan Selesai
+        if (countSoal >= jumlahSoal)
+        {
+            PermainanSelesai();
+            return;
+        }
+
+        //Tambah Soal
+        countSoal++;
+
         //Ini tinggal diganti sesuaiin nilai randomSumHuruf tinggal pake if else;
         var content = txtKataHuruf.text;
 
         //Randoming Kata
         var AllWords = content.Split('\n');
         List<string> listOfWords = new List<string>(AllWords);
-        string word = getRandomWord(listOfWords); //Dapat urutan kata random
-        // word = KUDA
+        //string word = getRandomWord(listOfWords); //Dapat urutan kata random
+
+        urutanTerpilih = Random.Range(0, listOfWords.Count);
+        string word = listOfWords[urutanTerpilih];
 
         //Jumlah Kata
         sumPuzzle = word.Length - 1;
@@ -75,10 +113,18 @@ public class PuzzleManager : MonoBehaviour
         string shuffledWord = new string(arraysShuffledWord); //"UDUK"
         Debug.Log(shuffledWord);
 
+
+        // Munculin gambar hewan
+        
+        Vector3 posHewan2 = hewan.transform.position;
+
+        Destroy(hewan.gameObject);
+        GameObject gambarHewan = Instantiate(semuaHewan[urutanTerpilih], posHewan2, Quaternion.identity);
+        hewan = gambarHewan;
+        
+
         //Convert string to array biar bisa di akses di looping bawah
         char[] arrayWord = word.ToCharArray(); //K,U,D,A
-
-
 
         var listSlot = slotPrefabs.Take(sumPuzzle).ToList();
         var listPiece = piecePrefabs.Take(sumPuzzle).ToList();
@@ -100,20 +146,13 @@ public class PuzzleManager : MonoBehaviour
             Debug.Log("adding piece"+i);
         }
 
-        // Munculin gambar hewan
-        /*
-        Vector3 posHewan2 = hewan.transform.position;
-
-        Destroy(hewan.gameObject);
-        GameObject gambarHewan = Instantiate(semuaHewan[0], posHewan2, Quaternion.identity);
-        hewan = gambarHewan;
-        */
 
         foreach (PuzzlePieces piece in listPieces)
         {
             piece.setListSlot(listSlots);
         }
         isSpawned = true;
+
 
     }
     void DestroyListSlots()
@@ -135,6 +174,8 @@ public class PuzzleManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (isGameOver) return;
+
         if(isSpawned)
         {
             int sum = 0;
@@ -153,6 +194,7 @@ public class PuzzleManager : MonoBehaviour
                 DestroyListPieces();
                 listPieces.Clear();
                 listSlots.Clear();
+
                 Spawn();
             }
         }

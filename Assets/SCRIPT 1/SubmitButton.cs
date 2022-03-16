@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class SubmitButton : MonoBehaviour
 {
-    public float waktuAlert = 1f;
+    public float waktuAlert = 0.8f;
     private float waktu;
     private bool deleteAlert = false;
 

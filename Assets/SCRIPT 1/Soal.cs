@@ -22,8 +22,8 @@ public class Soal : MonoBehaviour
     /*public GameObject papanSkor;*/
 
     //Permainan Selesai
-    [SerializeField] private GameObject GameOver;
-    [SerializeField] private GameObject DeletedObject;
+    [SerializeField] private GameObject PapanGameOver;
+    [SerializeField] private GameObject[] DeletedObject;
     [SerializeField] private AudioSource _source;
     [SerializeField] private AudioClip _gameover;
 
@@ -68,6 +68,7 @@ public class Soal : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        PapanGameOver.SetActive(false);
         mulaiGame();
     }
 
@@ -102,11 +103,14 @@ public class Soal : MonoBehaviour
             //Atur NilaiAkhir
             textNilaiAkhir.text = nilaiAkhir.ToString();
 
-            //Hapus Tombol Submit
-            DeletedObject.SetActive(false);
+            //Hapus Object
+            for (int i = 0; i < DeletedObject.Length; i++)
+            {
+                Destroy(DeletedObject[i].gameObject);
+            }
 
             //Muncul Papan Game Over
-            GameOver.SetActive(true);
+            PapanGameOver.SetActive(true);
             _source.PlayOneShot(_gameover);
             
         }
