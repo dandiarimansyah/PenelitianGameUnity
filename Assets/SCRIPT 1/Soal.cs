@@ -96,12 +96,12 @@ public class Soal : MonoBehaviour
         //Game Over
         else
         {
-            float totalPoin = poinBenar + poinSalah;
+            /*float totalPoin = poinBenar + poinSalah;
             float nilaiAkhirF = (poinBenar / totalPoin) * 100;
             int nilaiAkhir = (int)nilaiAkhirF;
 
             //Atur NilaiAkhir
-            textNilaiAkhir.text = nilaiAkhir.ToString();
+            textNilaiAkhir.text = nilaiAkhir.ToString();*/
 
             //Hapus Object
             for (int i = 0; i < DeletedObject.Length; i++)

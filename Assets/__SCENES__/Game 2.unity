@@ -4023,7 +4023,7 @@ MonoBehaviour:
   - {fileID: 2106484223778183535, guid: 535d1124bf83d404ca9160b305133145, type: 3}
   - {fileID: 2106484223778183535, guid: 578a83343404cd447bb61841ee235e2c, type: 3}
   txtKataHuruf: {fileID: 4900000, guid: ed4366cfd25bc6640ab0c74548040533, type: 3}
-  jumlahSoal: 2
+  jumlahSoal: 10
   PapanGameOver: {fileID: 776245050}
   DeletedObject: []
   _source: {fileID: 1519346287}

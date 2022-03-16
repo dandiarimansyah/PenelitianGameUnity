@@ -18,6 +18,8 @@ public class PuzzleManager : MonoBehaviour
     private int sumPuzzle = 0;
     private int urutanTerpilih = 0;
     private int[] sudahMuncul;
+    HashSet<int> listMuncul = new HashSet<int>();
+
 
     private char tempChar;
     private bool isSpawned = false;
@@ -82,6 +84,15 @@ public class PuzzleManager : MonoBehaviour
         isGameOver = true;
     }
 
+    private int RandomAngka(List<string> listOfWords)
+    {
+        var range = Enumerable.Range(0, listOfWords.Count).Where(i => !listMuncul.Contains(i));
+
+        var rand = new System.Random();
+        int index = rand.Next(0, listOfWords.Count - listMuncul.Count);
+        return range.ElementAt(index);
+    }
+
     void Spawn()
     {
         //Permainan Selesai
@@ -91,8 +102,6 @@ public class PuzzleManager : MonoBehaviour
             return;
         }
 
-        //Tambah Soal
-        countSoal++;
 
         //Ini tinggal diganti sesuaiin nilai randomSumHuruf tinggal pake if else;
         var content = txtKataHuruf.text;
@@ -102,8 +111,19 @@ public class PuzzleManager : MonoBehaviour
         List<string> listOfWords = new List<string>(AllWords);
         //string word = getRandomWord(listOfWords); //Dapat urutan kata random
 
+        urutanTerpilih = RandomAngka(listOfWords);
+        /*
         urutanTerpilih = Random.Range(0, listOfWords.Count);
+        while (sudahMuncul.Contains(urutanTerpilih))
+        {
+            urutanTerpilih = Random.Range(0, listOfWords.Count);
+        }
+        */
+
         string word = listOfWords[urutanTerpilih];
+
+        //sudahMuncul[countSoal] = urutanTerpilih;
+        listMuncul.Add(urutanTerpilih);
 
         //Jumlah Kata
         sumPuzzle = word.Length - 1;
@@ -115,7 +135,6 @@ public class PuzzleManager : MonoBehaviour
 
 
         // Munculin gambar hewan
-        
         Vector3 posHewan2 = hewan.transform.position;
 
         Destroy(hewan.gameObject);
@@ -153,6 +172,8 @@ public class PuzzleManager : MonoBehaviour
         }
         isSpawned = true;
 
+        //Tambah Soal
+        countSoal++;
 
     }
     void DestroyListSlots()
