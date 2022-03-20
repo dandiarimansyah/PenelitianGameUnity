@@ -10,9 +10,21 @@ public class PuzzleManager : MonoBehaviour
     [SerializeField] private List<Sprite> SpriteSlotHuruf;
     [SerializeField] private List<PuzzlePieces> piecePrefabs;
     [SerializeField] private List<PuzzleSlot> slotPrefabs;
-    
+
     [SerializeField] private TextAsset txtKataHuruf;
-    
+
+
+    //Variabel GameOver
+    [SerializeField] private GameObject PapanGameOver;
+    [SerializeField] private GameObject[] DeletedObject;
+    private bool isGameOver = false;
+
+    [SerializeField] private GameObject AlertBenar;
+    [SerializeField] private GameObject AlertSalah;
+    [SerializeField] private AudioSource _source;
+    [SerializeField] private AudioClip _benar, _salah, _gameover;
+
+
     private List<PuzzlePieces> listPieces = new List<PuzzlePieces>();
     private List<PuzzleSlot> listSlots = new List<PuzzleSlot>();
     private int sumPuzzle = 0;
@@ -25,14 +37,7 @@ public class PuzzleManager : MonoBehaviour
     private bool isSpawned = false;
     public int jumlahSoal = 10;
     private int countSoal = 0;
-
-
-    //Variabel GameOver
-    [SerializeField] private GameObject PapanGameOver;
-    [SerializeField] private GameObject[] DeletedObject;
-    [SerializeField] private AudioSource _source;
-    [SerializeField] private AudioClip _gameover;
-    private bool isGameOver = false;
+    private float waktuNext = 1f;
 
 
     [SerializeField] private Transform slotParent, pieceParent, posHewan;
@@ -42,6 +47,8 @@ public class PuzzleManager : MonoBehaviour
     void Start()
     {
         PapanGameOver.SetActive(false);
+        AlertBenar.SetActive(false);
+        AlertSalah.SetActive(false);
         Spawn();
     }
     public void ResetGame()
@@ -112,13 +119,6 @@ public class PuzzleManager : MonoBehaviour
         //string word = getRandomWord(listOfWords); //Dapat urutan kata random
 
         urutanTerpilih = RandomAngka(listOfWords);
-        /*
-        urutanTerpilih = Random.Range(0, listOfWords.Count);
-        while (sudahMuncul.Contains(urutanTerpilih))
-        {
-            urutanTerpilih = Random.Range(0, listOfWords.Count);
-        }
-        */
 
         string word = listOfWords[urutanTerpilih];
 
@@ -162,7 +162,7 @@ public class PuzzleManager : MonoBehaviour
             
             listPieces.Add(spawnPiece);
             listSlots.Add(spawnSlot);
-            Debug.Log("adding piece"+i);
+
         }
 
 
@@ -192,6 +192,22 @@ public class PuzzleManager : MonoBehaviour
         }
     }
 
+    IEnumerator NextGame()
+    {
+        AlertBenar.SetActive(true);
+
+        yield return new WaitForSeconds(waktuNext);
+
+        AlertBenar.SetActive(false);
+
+        DestroyListSlots();
+        DestroyListPieces();
+        listPieces.Clear();
+        listSlots.Clear();
+        Spawn();
+
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -211,18 +227,16 @@ public class PuzzleManager : MonoBehaviour
             if(sum == sumPuzzle)
             {
                 isSpawned = false;
-                DestroyListSlots();
-                DestroyListPieces();
-                listPieces.Clear();
-                listSlots.Clear();
+                _source.PlayOneShot(_benar);
 
-                Spawn();
+                StartCoroutine(NextGame());
+
             }
         }
         //Buat jaga2 tadi bug gak ke spawn
-        else if (!isSpawned || ((listPieces == null) && (listPieces.Any()) ))
+        /*else if (!isSpawned || ((listPieces == null) && (listPieces.Any()) ))
         {
-            Spawn();
-        }
+            StartCoroutine(NextGame());
+        }*/
     }
 }

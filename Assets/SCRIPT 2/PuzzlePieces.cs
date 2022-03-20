@@ -78,8 +78,8 @@ public class PuzzlePieces : MonoBehaviour
         {
             transform.position = _originalPosition;
             _angkat = false;
+            _source.PlayOneShot(_lempar);
         }
-        _source.PlayOneShot(_lempar);
     }
 
     Vector2 GetMousePos()

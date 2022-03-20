@@ -10,7 +10,7 @@ PrefabInstance:
     - target: {fileID: 1909691254707759924, guid: fe85782ab63cff44d909c37fbddf608e, type: 3}
       propertyPath: _pasangSound
       value: 
-      objectReference: {fileID: 8300000, guid: 2faa152bb6836644bb1bdb42dccddfe0, type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 2678305368679360336, guid: fe85782ab63cff44d909c37fbddf608e, type: 3}
       propertyPath: m_Name
       value: Puzzle Slot 3

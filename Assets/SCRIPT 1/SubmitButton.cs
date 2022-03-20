@@ -5,9 +5,8 @@ using UnityEngine.UI;
 
 public class SubmitButton : MonoBehaviour
 {
-    public float waktuAlert = 0.8f;
-    private float waktu;
-    private bool deleteAlert = false;
+    private float waktuNext = 1f;
+    private bool isWin;
 
     [SerializeField] private Soal soal;
     [SerializeField] private GameObject AlertBenar;
@@ -25,10 +24,10 @@ public class SubmitButton : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (deleteAlert)
+        /*if (deleteAlert)
         {
             HapusAlert(waktuAlert);
-        }
+        }*/
     }
 
     public void JawabSoal()
@@ -37,12 +36,10 @@ public class SubmitButton : MonoBehaviour
         if (soal.answerValue == soal.finalValue) 
         {
             _source.PlayOneShot(_benar);
-            AlertBenar.SetActive(true);
+            //AlertBenar.SetActive(true);
+            isWin = true;
 
             soal.poinBenar++;
-
-            soal.mulaiGame();
-
         }
 
         //Kondisi Salah
@@ -50,30 +47,35 @@ public class SubmitButton : MonoBehaviour
         { 
             _source.PlayOneShot(_salah);
             soal.poinSalah++;
+            isWin = false;
 
-            AlertSalah.SetActive(true);
+            //AlertSalah.SetActive(true);
         }
+
+        //Next Spawn Game
+        StartCoroutine(NextGame(isWin));
 
         PoinManager.instance.UpdateText();
 
-        // Hapus Alert
-        deleteAlert = true;
-
     }
 
-    private void HapusAlert(float waktuAlert)
+    IEnumerator NextGame(bool isWin)
     {
-        waktu += Time.deltaTime;
-
-        if (waktu >= waktuAlert)
+        if (isWin)
         {
-            AlertSalah.SetActive(false);
-            AlertBenar.SetActive(false);
-            deleteAlert = false;
-            waktu = 0f;
+            AlertBenar.SetActive(true);
+            yield return new WaitForSeconds(waktuNext);
+            soal.mulaiGame();
 
         }
+        else
+        {
+            AlertSalah.SetActive(true);
+            yield return new WaitForSeconds(waktuNext);
+        }
+
+        AlertBenar.SetActive(false);
+        AlertSalah.SetActive(false);
+
     }
-
-
 }

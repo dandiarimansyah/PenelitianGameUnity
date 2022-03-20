@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Apel
   - Keranjang
+  - ResetBuah
+  - Buah
   layers:
   - Default
   - TransparentFX

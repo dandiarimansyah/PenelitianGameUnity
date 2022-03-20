@@ -37,20 +37,25 @@ public class DragDropApel : MonoBehaviour
     {
         _angkat = false;
         _source.PlayOneShot(_lempar);
-        //rb.gravityScale = 1f;
+        rb.gravityScale = 1f;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Apel")
+        if (collision.gameObject.tag == "Buah")
         {
             Physics2D.IgnoreCollision(collision.gameObject.GetComponent<Collider2D>(), GetComponent<Collider2D>());
         }
 
-        if (collision.gameObject.name == "ResetApple")
+        if (collision.gameObject.tag == "ResetBuah" || collision.gameObject.name != "WadahApel")
         {
+            Debug.Log("out");
             transform.position = _originalPosition;
             rb.gravityScale = 0f;
+        }
+        else
+        {
+            Debug.Log("masuk");
         }
     }
 
