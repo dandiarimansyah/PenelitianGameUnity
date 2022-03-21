@@ -3351,6 +3351,25 @@ MonoBehaviour:
   posJawaban: {fileID: 1220093046}
   posAlert: {fileID: 450740173}
   GambarSoal: {fileID: 1733190336}
+  m_Kumpulan:
+  - {fileID: 113218380}
+  - {fileID: 1251824992}
+  - {fileID: 1728238491}
+  - {fileID: 1199196462}
+  - {fileID: 1044981029}
+  - {fileID: 408634311}
+  - {fileID: 1011809584}
+  - {fileID: 2071146803}
+  - {fileID: 1905835180}
+  - {fileID: 1007204303}
+  - {fileID: 586457448}
+  - {fileID: 1081252490}
+  - {fileID: 1133282261}
+  - {fileID: 2031404342}
+  - {fileID: 35294909}
+  - {fileID: 1174382472}
+  - {fileID: 1720026148}
+  - {fileID: 828146919}
   m_Kendaraan:
   - {fileID: 1550200224}
   - {fileID: 743995629}
@@ -3761,7 +3780,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1685393910
 Transform:
   m_ObjectHideFlags: 0

@@ -10,6 +10,7 @@ public class KuisManager : MonoBehaviour
     [SerializeField] private Transform posKumpulan, posJawaban, posAlert;
 
     public GameObject GambarSoal;
+    public GameObject[] m_Kumpulan;
     public GameObject[] m_Kendaraan;
     public Sprite[] m_Jari;
     public Sprite[] m_GambarSoal;
@@ -29,25 +30,26 @@ public class KuisManager : MonoBehaviour
     HashSet<int> simpanUrutan = new HashSet<int>();
 
     //private List<int> JenisTerpilih = new List<int>();
+    private int kendaraanTerpilih;
+    private int jumlah;
+    private int jumlahKumpulan;
     private int randomAngka;
     private int temp;
     private int jawabanDitekan;
-    private bool isWin;
+    private bool isWin = false;
 
-    private int jawabanAngka = 0;
+    private int jawabanAngka;
     private int angkaSebelum = -1;
 
-    int[] urutanAcak = new int[3];
-    private float waktuNext = 1f;
+    int[] urutanAcak = new int[4];
+    private float waktuNext = 1.5f;
 
     void Start()
     {
+        System.Array.Clear(urutanAcak, 0, urutanAcak.Length);
+        jumlahKumpulan = posKumpulan.childCount;
+        jumlah = m_Kendaraan.Count();
         MulaiGame();
-    }
-
-    void Update()
-    {
-        
     }
 
     private int RandomAngka(List<GameObject> listOfWords)
@@ -61,11 +63,20 @@ public class KuisManager : MonoBehaviour
 
     public void MulaiGame()
     {
+        jawabanAngka = 0;
+        isWin = false;
+        JenisTerpilih.Clear();
+        JenisTerpilih.TrimExcess();
+        TanganTerpilih.Clear();
+        TanganTerpilih.TrimExcess();
+
         //Menentukan Random Kendaraan
-        var jumlah = m_Kendaraan.Count();
-        var all_kendaraan = m_Kendaraan.ToList();
-        var kendaraanTerpilih = RandomAngka(all_kendaraan);
-        listMuncul.Add(kendaraanTerpilih);
+        //var all_kendaraan = m_Kendaraan.ToList();
+        //var kendaraanTerpilih = RandomAngka(all_kendaraan);
+        
+        kendaraanTerpilih = Random.Range(-1, 6);
+
+        //listMuncul.Add(kendaraanTerpilih);
         JenisTerpilih.Add(kendaraanTerpilih);
 
         //Ganti Gambar Soal
@@ -75,7 +86,6 @@ public class KuisManager : MonoBehaviour
         TanganTerpilih.Add(jawabanAngka);
 
         AturPilihanTangan();
-
     }
 
     public void SusunGambarAtas(int jumlah, int kendaraanTerpilih)
@@ -92,8 +102,6 @@ public class KuisManager : MonoBehaviour
             JenisTerpilih.Add(randomAngka);
         }
 
-        var jumlahKumpulan = posKumpulan.childCount;
-
         //Penempatan Random
         for (int i = 0; i < jumlahKumpulan; i++)
         {
@@ -104,7 +112,17 @@ public class KuisManager : MonoBehaviour
             {
                 randomAngka = Random.Range(0, jumlah);
             }
+            angkaSebelum = randomAngka;
 
+            if (randomAngka == kendaraanTerpilih)
+            {
+                jawabanAngka++;
+            }
+
+            m_Kumpulan[i].gameObject.GetComponent<SpriteRenderer>().sprite = m_GambarSoal[randomAngka];
+
+            //Instantiate(m_Kendaraan[randomAngka], posKumpulan.GetChild(i).position, Quaternion.identity);
+            
             // Kiri kanan & Baris tengah tidak sama dengan atas
             /*if (i > 5 && i < 11)
             {
@@ -121,17 +139,7 @@ public class KuisManager : MonoBehaviour
                 }
             }*/
             //simpanUrutan.Add(randomAngka);
-
-            angkaSebelum = randomAngka;
-
-            if (randomAngka == kendaraanTerpilih)
-            {
-                jawabanAngka++;
-            }
-
-            Instantiate(m_Kendaraan[randomAngka], posKumpulan.GetChild(i).position, Quaternion.identity);
         }
-
         Debug.Log("Jawaban = " + jawabanAngka);
     }
 
@@ -150,7 +158,7 @@ public class KuisManager : MonoBehaviour
         }
 
         //Acak Urutan
-        int[] array = new int[3];
+        int[] array = new int[4];
         TanganTerpilih.CopyTo(array);
         urutanAcak = pengacakArray(array);
 
@@ -204,7 +212,9 @@ public class KuisManager : MonoBehaviour
             Alert[jawabanDitekan].SetActive(true);
 
             yield return new WaitForSeconds(waktuNext);
-            //MulaiGame();
+
+            //Ati ati komputer meleduk
+            MulaiGame();
         }
         else
         {
