@@ -30,6 +30,8 @@ public class KuisManager : MonoBehaviour
     HashSet<int> simpanUrutan = new HashSet<int>();
 
     //private List<int> JenisTerpilih = new List<int>();
+    public int jumlahSoal = 5;
+    private int countSoal = 0;
     private int kendaraanTerpilih;
     private int jumlah;
     private int jumlahKumpulan;
@@ -42,14 +44,23 @@ public class KuisManager : MonoBehaviour
     private int angkaSebelum = -1;
 
     int[] urutanAcak = new int[4];
-    private float waktuNext = 1.5f;
+    private float waktuNext = 1.2f;
+
+    //Variabel GameOver
+    [SerializeField] private GameObject PapanGameOver;
 
     void Start()
     {
+        PapanGameOver.SetActive(false);
         System.Array.Clear(urutanAcak, 0, urutanAcak.Length);
         jumlahKumpulan = posKumpulan.childCount;
         jumlah = m_Kendaraan.Count();
         MulaiGame();
+    }
+
+    public void ResetGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     private int RandomAngka(List<GameObject> listOfWords)
@@ -61,8 +72,23 @@ public class KuisManager : MonoBehaviour
         return range.ElementAt(index);
     }
 
+    void PermainanSelesai()
+    {
+        //Muncul Papan Game Over
+        PapanGameOver.SetActive(true);
+        _source.PlayOneShot(_gameover);
+    }
+
     public void MulaiGame()
     {
+        //Permainan Selesai
+        if (countSoal >= jumlahSoal)
+        {
+            PermainanSelesai();
+            return;
+        }
+
+        countSoal++;
         jawabanAngka = 0;
         isWin = false;
         JenisTerpilih.Clear();
