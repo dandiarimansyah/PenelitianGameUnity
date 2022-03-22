@@ -19,6 +19,8 @@ public class KuisManager : MonoBehaviour
     public GameObject tanganKanan;
 
     [SerializeField] private GameObject[] Alert;
+    [SerializeField] private GameObject[] m_AlertBenar;
+    [SerializeField] private GameObject[] m_AlertSalah;
     [SerializeField] private GameObject AlertBenar;
     [SerializeField] private GameObject AlertSalah;
     [SerializeField] private AudioSource _source;
@@ -31,7 +33,7 @@ public class KuisManager : MonoBehaviour
 
     //private List<int> JenisTerpilih = new List<int>();
     public int jumlahSoal = 5;
-    private int countSoal = 0;
+    private int countSoal;
     private int kendaraanTerpilih;
     private int jumlah;
     private int jumlahKumpulan;
@@ -41,9 +43,9 @@ public class KuisManager : MonoBehaviour
     private bool isWin = false;
 
     private int jawabanAngka;
-    private int angkaSebelum = -1;
+    private int angkaSebelum;
 
-    int[] urutanAcak = new int[4];
+    int[] urutanAcak = new int[3];
     private float waktuNext = 1.2f;
 
     //Variabel GameOver
@@ -54,7 +56,9 @@ public class KuisManager : MonoBehaviour
         PapanGameOver.SetActive(false);
         System.Array.Clear(urutanAcak, 0, urutanAcak.Length);
         jumlahKumpulan = posKumpulan.childCount;
+
         jumlah = m_Kendaraan.Count();
+        countSoal = 0;
         MulaiGame();
     }
 
@@ -100,7 +104,7 @@ public class KuisManager : MonoBehaviour
         //var all_kendaraan = m_Kendaraan.ToList();
         //var kendaraanTerpilih = RandomAngka(all_kendaraan);
         
-        kendaraanTerpilih = Random.Range(-1, 6);
+        kendaraanTerpilih = Random.Range(0, 7);
 
         //listMuncul.Add(kendaraanTerpilih);
         JenisTerpilih.Add(kendaraanTerpilih);
@@ -174,23 +178,28 @@ public class KuisManager : MonoBehaviour
         //Menentukan Tangan berapa saja
         for (int i = 0; i < 2; i++)
         {
-            randomAngka = Random.Range(0, 10);
+            randomAngka = Random.Range(1, 11);
             while (TanganTerpilih.Contains(randomAngka))
             {
-                randomAngka = Random.Range(0, 10);
+                randomAngka = Random.Range(1, 11);
             }
 
             TanganTerpilih.Add(randomAngka);
         }
 
         //Acak Urutan
-        int[] array = new int[4];
+        int[] array = new int[3];
         TanganTerpilih.CopyTo(array);
         urutanAcak = pengacakArray(array);
+
+        Debug.Log("Jari 1 = "+ urutanAcak[0]);
+        Debug.Log("Jari 2 = "+ urutanAcak[1]);
+        Debug.Log("Jari 3 = "+ urutanAcak[2]);
 
         tanganKiri.GetComponent<Image>().sprite = m_Jari[urutanAcak[0]-1];
         tanganTengah.GetComponent<Image>().sprite = m_Jari[urutanAcak[1]-1];
         tanganKanan.GetComponent<Image>().sprite = m_Jari[urutanAcak[2]-1];
+        
     }
 
     public void pilihKiri()
@@ -224,8 +233,29 @@ public class KuisManager : MonoBehaviour
             isWin = false;
         }
 
-        StartCoroutine(NextGame(isWin));
+        //StartCoroutine(NextGame(isWin));
+        var jawaban = jawabanDitekan;
+        StartCoroutine(AlertMuncul(jawaban, isWin));
 
+    }
+
+    IEnumerator AlertMuncul(int jawaban, bool isWin)
+    {
+        if (isWin)
+        {
+            m_AlertBenar[jawaban].SetActive(true);
+            yield return new WaitForSeconds(waktuNext);
+            m_AlertBenar[jawaban].SetActive(false);
+
+            //Ati ati komputer meleduk
+            MulaiGame();
+        }
+        else
+        {
+            m_AlertSalah[jawaban].SetActive(true);
+            yield return new WaitForSeconds(waktuNext);
+            m_AlertSalah[jawaban].SetActive(false);
+        }
     }
 
     IEnumerator NextGame(bool isWin)

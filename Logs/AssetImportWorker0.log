@@ -4,3 +4,18 @@ OS: 'Windows 11  (10.0.22000) 64bit CoreSingleLanguage' Language: 'en' Physical 
 BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, IsPro: 0
 
 COMMAND LINE ARGUMENTS:
+C:\Program Files\Unity\Hub\Editor\2020.3.30f1\Editor\Unity.exe
+-adb2
+-batchMode
+-noUpm
+-name
+AssetImportWorker0
+-projectPath
+C:/Users/dandi/Documents/00 PENELITIAN SKRIPSI GAMES/PROJECT UNITY ENGINE/PENJUMLAHAN
+-logFile
+Logs/AssetImportWorker0.log
+-srvPort
+58671
+Successfully changed project path to: C:/Users/dandi/Documents/00 PENELITIAN SKRIPSI GAMES/PROJECT UNITY ENGINE/PENJUMLAHAN
+C:/Users/dandi/Documents/00 PENELITIAN SKRIPSI GAMES/PROJECT UNITY ENGINE/PENJUMLAHAN
+Using Asset Import Pipeline V2.
