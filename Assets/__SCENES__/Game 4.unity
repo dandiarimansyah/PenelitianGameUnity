@@ -4485,12 +4485,16 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 2b638091d7571894fa6c95644d3d3ec6, type: 3}
   - {fileID: 21300000, guid: 679a05b8665c30844a64e9445eaffab3, type: 3}
   m_Hewan_Darat:
-  - {fileID: 21300000, guid: 679a05b8665c30844a64e9445eaffab3, type: 3}
   - {fileID: 21300000, guid: b0b1585c96d77c9438d08eb9551e63c0, type: 3}
   - {fileID: 21300000, guid: 88b69bdb14000694c895eae36289b3a1, type: 3}
   - {fileID: 21300000, guid: 1dda9a519b153c04193ce3e9a933852f, type: 3}
   - {fileID: 21300000, guid: 540f3637dd4a9954da188cc5529e3cca, type: 3}
   - {fileID: 21300000, guid: 39af5d068b9382245a64a9a70a4450cf, type: 3}
+  - {fileID: 21300000, guid: b2590a7876826674ab8dc21eaa7e5dbe, type: 3}
+  - {fileID: 21300000, guid: 8c06faf6726129041ad1b070340c9f00, type: 3}
+  - {fileID: 21300000, guid: e06da1d4f668ff74197915c2205d2f9a, type: 3}
+  - {fileID: 21300000, guid: 2b638091d7571894fa6c95644d3d3ec6, type: 3}
+  - {fileID: 21300000, guid: 679a05b8665c30844a64e9445eaffab3, type: 3}
   m_Hewan_Laut:
   - {fileID: 21300000, guid: 6cd7afe78bc81f949bc573b5e7ff1614, type: 3}
   - {fileID: 21300000, guid: 5e8a5796808e97a44b02b2a495bc3890, type: 3}
@@ -4511,11 +4515,12 @@ MonoBehaviour:
   - {fileID: 21300000, guid: e06da1d4f668ff74197915c2205d2f9a, type: 3}
   - {fileID: 21300000, guid: e06da1d4f668ff74197915c2205d2f9a, type: 3}
   m_Hewan_Kaki4:
-  - {fileID: 21300000, guid: b2590a7876826674ab8dc21eaa7e5dbe, type: 3}
-  - {fileID: 21300000, guid: 540f3637dd4a9954da188cc5529e3cca, type: 3}
-  - {fileID: 21300000, guid: 1dda9a519b153c04193ce3e9a933852f, type: 3}
-  - {fileID: 21300000, guid: 88b69bdb14000694c895eae36289b3a1, type: 3}
   - {fileID: 21300000, guid: b0b1585c96d77c9438d08eb9551e63c0, type: 3}
+  - {fileID: 21300000, guid: 88b69bdb14000694c895eae36289b3a1, type: 3}
+  - {fileID: 21300000, guid: 1dda9a519b153c04193ce3e9a933852f, type: 3}
+  - {fileID: 21300000, guid: 540f3637dd4a9954da188cc5529e3cca, type: 3}
+  - {fileID: 21300000, guid: b2590a7876826674ab8dc21eaa7e5dbe, type: 3}
+  - {fileID: 21300000, guid: 8c06faf6726129041ad1b070340c9f00, type: 3}
   BorderBenar: {fileID: 21300000, guid: 23359e870ca4c434a9c9013a65f614c0, type: 3}
   BorderSalah: {fileID: 21300000, guid: 0d3f73711dc859644a69ac35060f5de8, type: 3}
   _source: {fileID: 1488922560}
