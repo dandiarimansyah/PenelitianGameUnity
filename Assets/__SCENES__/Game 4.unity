@@ -5713,8 +5713,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Soal, Assembly-CSharp
+      - m_Target: {fileID: 1488922559}
+        m_TargetAssemblyTypeName: Game4Manager, Assembly-CSharp
         m_MethodName: ResetGame
         m_Mode: 1
         m_Arguments:

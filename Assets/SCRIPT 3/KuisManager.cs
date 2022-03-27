@@ -201,26 +201,7 @@ public class KuisManager : MonoBehaviour
         tanganKanan.GetComponent<Image>().sprite = m_Jari[urutanAcak[2]-1];
         
     }
-
-    public void pilihKiri()
-    {
-        jawabanDitekan = 0;
-        koreksiJawaban();
-    }
-
-    public void pilihTengah()
-    {
-        jawabanDitekan = 1;
-        koreksiJawaban();
-    }
-
-    public void pilihKanan()
-    {
-        jawabanDitekan = 2;
-        koreksiJawaban();
-    }
-
-    public void koreksiJawaban()
+    public void KlikTombol(int jawabanDitekan)
     {
         if (urutanAcak[jawabanDitekan] == jawabanAngka)
         {
@@ -236,7 +217,6 @@ public class KuisManager : MonoBehaviour
         //StartCoroutine(NextGame(isWin));
         var jawaban = jawabanDitekan;
         StartCoroutine(AlertMuncul(jawaban, isWin));
-
     }
 
     IEnumerator AlertMuncul(int jawaban, bool isWin)

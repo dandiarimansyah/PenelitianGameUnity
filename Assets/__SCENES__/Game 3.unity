@@ -854,8 +854,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1294873185}
         m_TargetAssemblyTypeName: KuisManager, Assembly-CSharp
-        m_MethodName: pilihKiri
-        m_Mode: 1
+        m_MethodName: KlikTombol
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2212,12 +2212,12 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1294873185}
         m_TargetAssemblyTypeName: KuisManager, Assembly-CSharp
-        m_MethodName: pilihTengah
-        m_Mode: 1
+        m_MethodName: KlikTombol
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -3484,12 +3484,12 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1294873185}
         m_TargetAssemblyTypeName: KuisManager, Assembly-CSharp
-        m_MethodName: pilihKanan
-        m_Mode: 1
+        m_MethodName: KlikTombol
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -3624,7 +3624,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1245629088}
   - component: {fileID: 1245629087}
-  - component: {fileID: 1245629086}
   m_Layer: 0
   m_Name: CameraCanvasButton
   m_TagString: Untagged
@@ -3632,14 +3631,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &1245629086
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1245629085}
-  m_Enabled: 1
 --- !u!20 &1245629087
 Camera:
   m_ObjectHideFlags: 0
@@ -4864,7 +4855,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1911958455}
   - component: {fileID: 1911958454}
-  - component: {fileID: 1911958453}
   m_Layer: 0
   m_Name: CameraCanvasAlert
   m_TagString: Untagged
@@ -4872,14 +4862,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &1911958453
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1911958452}
-  m_Enabled: 1
 --- !u!20 &1911958454
 Camera:
   m_ObjectHideFlags: 0
