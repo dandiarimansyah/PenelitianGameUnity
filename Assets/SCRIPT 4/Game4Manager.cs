@@ -24,17 +24,18 @@ public class Game4Manager : MonoBehaviour
     [SerializeField] private Sprite BorderNormal;
     [SerializeField] private Sprite BorderBenar;
     [SerializeField] private Sprite BorderSalah;
+    [SerializeField] private GameObject AlertBenar;
 
     [SerializeField] private AudioSource _source;
-    [SerializeField] private AudioClip _benar, _salah, _gameover;
+    [SerializeField] private AudioClip _benar, _salah, _nextGame, _gameover;
 
+    HashSet<int> listMuncul = new HashSet<int>();
     HashSet<int> HewanTerpilih = new HashSet<int>();
     HashSet<int> Ditempati = new HashSet<int>();
     HashSet<int> TempatBenar = new HashSet<int>();
     HashSet<string> NamaHewanTerpilih = new HashSet<string>();
 
     private Sprite[] ArrayTerpilih;
-    private Sprite[] KategoriTerpilih;
 
     public int jumlahSoal = 5;
     private int countSoal;
@@ -47,11 +48,14 @@ public class Game4Manager : MonoBehaviour
 
     //Variabel GameOver
     [SerializeField] private GameObject PapanGameOver;
+    [SerializeField] private GameObject PauseMenu;
 
     void Start()
     {
         countSoal = 0;
         jumlahHewan = m_SemuaHewan.Count();
+        PapanGameOver.SetActive(false);
+        PauseMenu.SetActive(false);
         MulaiGame();
     }
     public void ResetGame()
@@ -81,12 +85,12 @@ public class Game4Manager : MonoBehaviour
         countJumlahJawaban = 0;
 
         NamaHewanTerpilih.Clear();
-        NamaHewanTerpilih.TrimExcess();
         HewanTerpilih.Clear();
-        HewanTerpilih.TrimExcess();
         Ditempati.Clear();
-        Ditempati.TrimExcess();
         TempatBenar.Clear();
+        NamaHewanTerpilih.TrimExcess();
+        HewanTerpilih.TrimExcess();
+        Ditempati.TrimExcess();
         TempatBenar.TrimExcess();
 
         for (int i = 0; i < 10; i++)
@@ -95,26 +99,27 @@ public class Game4Manager : MonoBehaviour
         }
 
         //Menentukan Soal
-        kategoriTerpilih = Random.Range(1, 6);
-        KategoriSoal.gameObject.GetComponent<SpriteRenderer>().sprite = m_KategoriSoal[kategoriTerpilih-1];
-        TulisanSoal.gameObject.GetComponent<SpriteRenderer>().sprite = m_TulisanSoal[kategoriTerpilih-1];
+        kategoriTerpilih = RandomAll(5, listMuncul);
+
+        KategoriSoal.gameObject.GetComponent<SpriteRenderer>().sprite = m_KategoriSoal[kategoriTerpilih];
+        TulisanSoal.gameObject.GetComponent<SpriteRenderer>().sprite = m_TulisanSoal[kategoriTerpilih];
         
         //Menentukan Array dari kategori yang terpilih
         switch (kategoriTerpilih)
         {
-            case 1:
+            case 0:
                 ArrayTerpilih = m_Hewan_Darat;
                 break;
-            case 2:
+            case 1:
                 ArrayTerpilih = m_Hewan_Laut;
                 break;
-            case 3:
+            case 2:
                 ArrayTerpilih = m_Hewan_Tanduk;
                 break;
-            case 4:
+            case 3:
                 ArrayTerpilih = m_Hewan_Kaki2;
                 break;
-            case 5:
+            case 4:
                 ArrayTerpilih = m_Hewan_Kaki4;
                 break;
         }
@@ -126,7 +131,6 @@ public class Game4Manager : MonoBehaviour
 
         //Jumlah hewan yang benar
         jumlahJawaban = Random.Range(3, 6);
-        Debug.Log("jumlah = "+ jumlahJawaban);
 
         SusunGambarJawaban(jumlahJawaban, ArrayTerpilih);
     }
@@ -195,6 +199,7 @@ public class Game4Manager : MonoBehaviour
 
             if (countJumlahJawaban == jumlahJawaban)
             {
+                _source.PlayOneShot(_nextGame);
                 StartCoroutine(DelayNextGame());
             }
         }
@@ -214,7 +219,9 @@ public class Game4Manager : MonoBehaviour
 
     IEnumerator DelayNextGame()
     {
+        AlertBenar.SetActive(true);
         yield return new WaitForSeconds(waktuNext);
+        AlertBenar.SetActive(false);
         MulaiGame();
     }
 

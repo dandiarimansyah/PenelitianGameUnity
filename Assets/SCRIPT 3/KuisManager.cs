@@ -18,11 +18,8 @@ public class KuisManager : MonoBehaviour
     public GameObject tanganTengah;
     public GameObject tanganKanan;
 
-    [SerializeField] private GameObject[] Alert;
     [SerializeField] private GameObject[] m_AlertBenar;
     [SerializeField] private GameObject[] m_AlertSalah;
-    [SerializeField] private GameObject AlertBenar;
-    [SerializeField] private GameObject AlertSalah;
     [SerializeField] private AudioSource _source;
     [SerializeField] private AudioClip _benar, _salah, _gameover;
 
@@ -50,10 +47,12 @@ public class KuisManager : MonoBehaviour
 
     //Variabel GameOver
     [SerializeField] private GameObject PapanGameOver;
+    [SerializeField] private GameObject PauseMenu;
 
     void Start()
     {
         PapanGameOver.SetActive(false);
+        PauseMenu.SetActive(false);
         System.Array.Clear(urutanAcak, 0, urutanAcak.Length);
         jumlahKumpulan = posKumpulan.childCount;
 
@@ -65,15 +64,6 @@ public class KuisManager : MonoBehaviour
     public void ResetGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
-
-    private int RandomAngka(List<GameObject> listOfWords)
-    {
-        var range = Enumerable.Range(0, listOfWords.Count).Where(i => !listMuncul.Contains(i));
-
-        var rand = new System.Random();
-        int index = rand.Next(0, listOfWords.Count - listMuncul.Count);
-        return range.ElementAt(index);
     }
 
     void PermainanSelesai()
@@ -100,13 +90,8 @@ public class KuisManager : MonoBehaviour
         TanganTerpilih.Clear();
         TanganTerpilih.TrimExcess();
 
-        //Menentukan Random Kendaraan
-        //var all_kendaraan = m_Kendaraan.ToList();
-        //var kendaraanTerpilih = RandomAngka(all_kendaraan);
-        
-        kendaraanTerpilih = Random.Range(0, 7);
-
-        //listMuncul.Add(kendaraanTerpilih);
+        //Menentukan Random Kendaraan       
+        kendaraanTerpilih = RandomAll(7, listMuncul);
         JenisTerpilih.Add(kendaraanTerpilih);
 
         //Ganti Gambar Soal
@@ -123,13 +108,7 @@ public class KuisManager : MonoBehaviour
         //Menentukan 4 Jenis Kendaraan
         for (int i = 1; i < 4; i++)
         {
-            randomAngka = Random.Range(0, jumlah);
-            while (JenisTerpilih.Contains(randomAngka))
-            {
-                randomAngka = Random.Range(0, jumlah);
-            }
-
-            JenisTerpilih.Add(randomAngka);
+            randomAngka = RandomAll(jumlah, JenisTerpilih);
         }
 
         //Penempatan Random
@@ -151,26 +130,7 @@ public class KuisManager : MonoBehaviour
 
             m_Kumpulan[i].gameObject.GetComponent<SpriteRenderer>().sprite = m_GambarSoal[randomAngka];
 
-            //Instantiate(m_Kendaraan[randomAngka], posKumpulan.GetChild(i).position, Quaternion.identity);
-            
-            // Kiri kanan & Baris tengah tidak sama dengan atas
-            /*if (i > 5 && i < 11)
-            {
-                while (randomAngka == simpanUrutan.ElementAt(i-6) || !JenisTerpilih.Contains(randomAngka) || randomAngka == angkaSebelum)
-                {
-                    randomAngka = Random.Range(0, jumlah);
-                }
-            }
-            else
-            {
-                while (!JenisTerpilih.Contains(randomAngka) || randomAngka == angkaSebelum)
-                {
-                    randomAngka = Random.Range(0, jumlah);
-                }
-            }*/
-            //simpanUrutan.Add(randomAngka);
         }
-        Debug.Log("Jawaban = " + jawabanAngka);
     }
 
     public void AturPilihanTangan()
@@ -192,10 +152,6 @@ public class KuisManager : MonoBehaviour
         TanganTerpilih.CopyTo(array);
         urutanAcak = pengacakArray(array);
 
-        Debug.Log("Jari 1 = "+ urutanAcak[0]);
-        Debug.Log("Jari 2 = "+ urutanAcak[1]);
-        Debug.Log("Jari 3 = "+ urutanAcak[2]);
-
         tanganKiri.GetComponent<Image>().sprite = m_Jari[urutanAcak[0]-1];
         tanganTengah.GetComponent<Image>().sprite = m_Jari[urutanAcak[1]-1];
         tanganKanan.GetComponent<Image>().sprite = m_Jari[urutanAcak[2]-1];
@@ -214,7 +170,6 @@ public class KuisManager : MonoBehaviour
             isWin = false;
         }
 
-        //StartCoroutine(NextGame(isWin));
         var jawaban = jawabanDitekan;
         StartCoroutine(AlertMuncul(jawaban, isWin));
     }
@@ -238,35 +193,17 @@ public class KuisManager : MonoBehaviour
         }
     }
 
-    IEnumerator NextGame(bool isWin)
+    public int RandomAll(int jumlah, HashSet<int> Array)
     {
-        if (isWin)
+        var angka = 0;
+        do
         {
-            //AlertBenar.SetActive(true);
-            GameObject AlertB = Instantiate(AlertBenar, posAlert.GetChild(jawabanDitekan).position, Quaternion.identity);
-            Alert[jawabanDitekan] = AlertB;
-            Alert[jawabanDitekan].SetActive(true);
+            angka = Random.Range(0, jumlah);
+        } while (Array.Contains(angka));
 
-            yield return new WaitForSeconds(waktuNext);
+        Array.Add(angka);
 
-            //Ati ati komputer meleduk
-            MulaiGame();
-        }
-        else
-        {
-            //AlertSalah.SetActive(true);
-            GameObject AlertS = Instantiate(AlertSalah, posAlert.GetChild(jawabanDitekan).position, Quaternion.identity);
-            Alert[jawabanDitekan] = AlertS;
-            Alert[jawabanDitekan].SetActive(true);
-
-            yield return new WaitForSeconds(waktuNext);
-        }
-
-        for (int i = 0; i < 3; i++)
-        {
-            Alert[i].SetActive(false);
-        }
-
+        return angka;
     }
 
     int[] pengacakArray(int[] array)

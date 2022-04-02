@@ -23,6 +23,7 @@ public class Soal : MonoBehaviour
 
     //Permainan Selesai
     [SerializeField] private GameObject PapanGameOver;
+    [SerializeField] private GameObject PauseMenu;
     [SerializeField] private GameObject[] DeletedObject;
     [SerializeField] private AudioSource _source;
     [SerializeField] private AudioClip _gameover;
@@ -69,6 +70,7 @@ public class Soal : MonoBehaviour
     void Start()
     {
         PapanGameOver.SetActive(false);
+        PauseMenu.SetActive(false);
         mulaiGame();
     }
 
@@ -235,11 +237,5 @@ public class Soal : MonoBehaviour
         GameObject buah3 = Instantiate(m_PapanBuah2[answerValue], PositionBuah3, Quaternion.identity);
         BoxApel3 = buah3;
 
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

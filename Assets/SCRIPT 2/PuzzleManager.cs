@@ -13,17 +13,14 @@ public class PuzzleManager : MonoBehaviour
 
     [SerializeField] private TextAsset txtKataHuruf;
 
-
     //Variabel GameOver
+    [SerializeField] private GameObject PauseMenu;
     [SerializeField] private GameObject PapanGameOver;
     [SerializeField] private GameObject[] DeletedObject;
-    private bool isGameOver = false;
-
     [SerializeField] private GameObject AlertBenar;
     [SerializeField] private GameObject AlertSalah;
     [SerializeField] private AudioSource _source;
     [SerializeField] private AudioClip _benar, _salah, _gameover;
-
 
     private List<PuzzlePieces> listPieces = new List<PuzzlePieces>();
     private List<PuzzleSlot> listSlots = new List<PuzzleSlot>();
@@ -39,7 +36,6 @@ public class PuzzleManager : MonoBehaviour
     private int countSoal = 0;
     private float waktuNext = 1f;
 
-
     [SerializeField] private Transform slotParent, pieceParent, posHewan;
     public GameObject hewan;
     public GameObject[] semuaHewan;
@@ -47,6 +43,7 @@ public class PuzzleManager : MonoBehaviour
     void Start()
     {
         PapanGameOver.SetActive(false);
+        PauseMenu.SetActive(false);
         AlertBenar.SetActive(false);
         AlertSalah.SetActive(false);
         Spawn();
@@ -78,17 +75,9 @@ public class PuzzleManager : MonoBehaviour
 
     void PermainanSelesai()
     {
-        //Hapus Object
-        /*for (int i = 0; i < DeletedObject.Length; i++)
-        {
-            Destroy(DeletedObject[i].gameObject);
-        }*/
-
         //Muncul Papan Game Over
         PapanGameOver.SetActive(true);
         _source.PlayOneShot(_gameover);
-
-        isGameOver = true;
     }
 
     private int RandomAngka(List<string> listOfWords)
@@ -108,7 +97,6 @@ public class PuzzleManager : MonoBehaviour
             PermainanSelesai();
             return;
         }
-
 
         //Ini tinggal diganti sesuaiin nilai randomSumHuruf tinggal pake if else;
         var content = txtKataHuruf.text;
@@ -132,7 +120,6 @@ public class PuzzleManager : MonoBehaviour
         char[] arraysShuffledWord = Shuffler(word); //U,D,U,K
         string shuffledWord = new string(arraysShuffledWord); //"UDUK"
         Debug.Log(shuffledWord);
-
 
         // Munculin gambar hewan
         Vector3 posHewan2 = hewan.transform.position;
@@ -162,9 +149,7 @@ public class PuzzleManager : MonoBehaviour
             
             listPieces.Add(spawnPiece);
             listSlots.Add(spawnSlot);
-
         }
-
 
         foreach (PuzzlePieces piece in listPieces)
         {
@@ -211,8 +196,6 @@ public class PuzzleManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isGameOver) return;
-
         if(isSpawned)
         {
             int sum = 0;
@@ -234,9 +217,9 @@ public class PuzzleManager : MonoBehaviour
             }
         }
         //Buat jaga2 tadi bug gak ke spawn
-        /*else if (!isSpawned || ((listPieces == null) && (listPieces.Any()) ))
-        {
-            StartCoroutine(NextGame());
-        }*/
+        //else if (!isSpawned || ((listPieces == null) && (listPieces.Any())))
+        //{
+        //    StartCoroutine(NextGame());
+        //}
     }
 }
