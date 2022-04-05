@@ -47,14 +47,10 @@ public class SoundManager : MonoBehaviour
     {
         if (muted)
         {
-            //SoundON.enabled = false;
-            //SoundOFF.enabled = true;
             Sound.GetComponent<Image>().sprite = SoundOFF;
         }
         else
         {
-            //SoundON.enabled = true;
-            //SoundOFF.enabled = false;
             Sound.GetComponent<Image>().sprite = SoundON;
         }
     }

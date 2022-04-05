@@ -6,7 +6,9 @@ using UnityEngine.SceneManagement;
 
 public class Soal : MonoBehaviour
 {
-  public GameObject originalGameObject;
+    public Texture2D cursorImage, handCursor, dragCursor;
+
+    public GameObject originalGameObject;
     //Tempat soal angka
     public GameObject angkaDummy1;  
     public GameObject angkaDummy2;
@@ -69,6 +71,8 @@ public class Soal : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Cursor.SetCursor(cursorImage, new Vector2(30, 10), CursorMode.ForceSoftware);
+
         PapanGameOver.SetActive(false);
         PauseMenu.SetActive(false);
         mulaiGame();

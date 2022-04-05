@@ -7,6 +7,8 @@ using UnityEngine.UI;
 
 public class KuisManager : MonoBehaviour
 {
+    [SerializeField] Texture2D cursorImage;
+
     [SerializeField] private Transform posKumpulan, posJawaban, posAlert;
 
     public GameObject GambarSoal;
@@ -22,6 +24,7 @@ public class KuisManager : MonoBehaviour
     [SerializeField] private GameObject[] m_AlertSalah;
     [SerializeField] private AudioSource _source;
     [SerializeField] private AudioClip _benar, _salah, _gameover;
+    [SerializeField] private AudioClip[] m_audioAngka;
 
     HashSet<int> listMuncul = new HashSet<int>();
     HashSet<int> JenisTerpilih = new HashSet<int>();
@@ -51,6 +54,8 @@ public class KuisManager : MonoBehaviour
 
     void Start()
     {
+        Cursor.SetCursor(cursorImage, new Vector2(30,10), CursorMode.ForceSoftware);
+        
         PapanGameOver.SetActive(false);
         PauseMenu.SetActive(false);
         System.Array.Clear(urutanAcak, 0, urutanAcak.Length);
@@ -161,7 +166,7 @@ public class KuisManager : MonoBehaviour
     {
         if (urutanAcak[jawabanDitekan] == jawabanAngka)
         {
-            _source.PlayOneShot(_benar);
+            _source.PlayOneShot(m_audioAngka[jawabanAngka-1]);
             isWin = true;
         }
         else

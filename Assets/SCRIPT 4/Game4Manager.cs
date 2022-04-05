@@ -7,6 +7,8 @@ using UnityEngine.UI;
 
 public class Game4Manager : MonoBehaviour
 {
+    [SerializeField] Texture2D cursorImage;
+
     [SerializeField] private GameObject KategoriSoal;
     [SerializeField] private GameObject TulisanSoal;
     [SerializeField] private GameObject[] m_Gambar;
@@ -52,6 +54,8 @@ public class Game4Manager : MonoBehaviour
 
     void Start()
     {
+        Cursor.SetCursor(cursorImage, new Vector2(30, 10), CursorMode.ForceSoftware);
+
         countSoal = 0;
         jumlahHewan = m_SemuaHewan.Count();
         PapanGameOver.SetActive(false);
@@ -157,16 +161,12 @@ public class Game4Manager : MonoBehaviour
         var tempatTersisa = 10 - jumlahJawaban;
         var jmlHewanKategori = ArrayTerpilih.Count();
 
-        //Debug.Log("jumlahJawaban = " + jumlahJawaban);
-
         for (int i = 0; i < jumlahJawaban; i++)
         {
             randomTempat = RandomAll(10, Ditempati);
             TempatBenar.Add(Ditempati.ElementAt(i));
 
             randomHewan = RandomAll(jmlHewanKategori, HewanTerpilih);
-
-            //Debug.Log("HewanBenar --> "+ ArrayTerpilih[randomHewan].name);
 
             m_Gambar[randomTempat].GetComponent<Image>().sprite = ArrayTerpilih[randomHewan];
         }
@@ -180,8 +180,6 @@ public class Game4Manager : MonoBehaviour
                 randomHewan = Random.Range(0, jumlahHewan);
                 namaRandomHewan = m_SemuaHewan[randomHewan].name;
             } while (NamaHewanTerpilih.Contains(namaRandomHewan));
-
-            //Debug.Log("Sisa: " + namaRandomHewan);
 
             NamaHewanTerpilih.Add(namaRandomHewan);
 

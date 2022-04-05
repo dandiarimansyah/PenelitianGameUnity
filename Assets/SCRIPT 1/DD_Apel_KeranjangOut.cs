@@ -24,7 +24,8 @@ public class DD_Apel_KeranjangOut : MonoBehaviour
         if (!_angkat) return;
 
         var mousePosition = GetMousePos();
-
+        Cursor.SetCursor(soal.dragCursor, new Vector2(40, 40), CursorMode.ForceSoftware);
+        
         transform.position = mousePosition - _offset;
     }
 
@@ -32,7 +33,9 @@ public class DD_Apel_KeranjangOut : MonoBehaviour
     {
         if(soal.answerValue != 0)
         {
-            SpriteRenderer  sprite = GetComponent<SpriteRenderer>();
+            Cursor.SetCursor(soal.dragCursor, new Vector2(40, 40), CursorMode.ForceSoftware);
+
+            SpriteRenderer sprite = GetComponent<SpriteRenderer>();
 
             sprite.sortingOrder = 0;
             sprite.sortingLayerName = "Default";
@@ -52,18 +55,28 @@ public class DD_Apel_KeranjangOut : MonoBehaviour
                 soal.tambahApel();
             }
 
-            SpriteRenderer  sprite = GetComponent<SpriteRenderer>();
+            Cursor.SetCursor(soal.handCursor, new Vector2(50, 50), CursorMode.ForceSoftware);
+
+            SpriteRenderer sprite = GetComponent<SpriteRenderer>();
             sprite.sortingOrder = 0;
             sprite.sortingLayerName = "HiddenApel";
             transform.position = _originalPosition;
             _angkat = false;
             _source.PlayOneShot(_lempar);
         }
-    }
-        
+    }        
 
     Vector2 GetMousePos()
     {
         return Camera.main.ScreenToWorldPoint(Input.mousePosition);
+    }
+
+    public void OnMouseEnter()
+    {
+        Cursor.SetCursor(soal.handCursor, new Vector2(50, 50), CursorMode.ForceSoftware);
+    }
+    public void OnMouseExit()
+    {
+        Cursor.SetCursor(soal.cursorImage, new Vector2(30, 10), CursorMode.ForceSoftware);
     }
 }

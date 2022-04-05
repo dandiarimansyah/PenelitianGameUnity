@@ -10,7 +10,7 @@ public class BGM_1 : MonoBehaviour
         if (BGMusic1 == null)
         {
             BGMusic1 = this;
-            DontDestroyOnLoad(BGMusic1);
+            //DontDestroyOnLoad(BGMusic1);
         }
         else
         {

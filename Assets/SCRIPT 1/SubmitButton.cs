@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class SubmitButton : MonoBehaviour
 {
     private float waktuNext = 1f;
-    private bool isWin;
+    private bool isWin, isClick = false;
 
     [SerializeField] private Soal soal;
     [SerializeField] private GameObject AlertBenar;
@@ -21,27 +21,19 @@ public class SubmitButton : MonoBehaviour
         AlertSalah.SetActive(false);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        /*if (deleteAlert)
-        {
-            HapusAlert(waktuAlert);
-        }*/
-    }
-
     public void JawabSoal()
     {
+        if (isClick) return;
+
         // Kondisi Benar
         if (soal.answerValue == soal.finalValue) 
         {
             _source.PlayOneShot(_benar);
             //AlertBenar.SetActive(true);
             isWin = true;
-
+            isClick = true;
             soal.poinBenar++;
         }
-
         //Kondisi Salah
         else
         { 
@@ -56,7 +48,6 @@ public class SubmitButton : MonoBehaviour
         StartCoroutine(NextGame(isWin));
 
         PoinManager.instance.UpdateText();
-
     }
 
     IEnumerator NextGame(bool isWin)
@@ -66,7 +57,7 @@ public class SubmitButton : MonoBehaviour
             AlertBenar.SetActive(true);
             yield return new WaitForSeconds(waktuNext);
             soal.mulaiGame();
-
+            isClick = false;
         }
         else
         {

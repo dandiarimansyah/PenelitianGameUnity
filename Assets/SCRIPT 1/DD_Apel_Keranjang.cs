@@ -23,6 +23,7 @@ public class DD_Apel_Keranjang : MonoBehaviour
     {
         if (!_angkat) return;
 
+        Cursor.SetCursor(soal.dragCursor, new Vector2(40, 40), CursorMode.ForceSoftware);
         var mousePosition = GetMousePos();
 
         transform.position = mousePosition - _offset;
@@ -30,6 +31,8 @@ public class DD_Apel_Keranjang : MonoBehaviour
 
     void OnMouseDown()
     {
+        Cursor.SetCursor(soal.dragCursor, new Vector2(40, 40), CursorMode.ForceSoftware);
+
         _angkat = true;
         _source.PlayOneShot(_ambil);
 
@@ -37,10 +40,12 @@ public class DD_Apel_Keranjang : MonoBehaviour
     }
     private void OnMouseUp()
     {
-        if(Vector3.Distance(transform.position,soal.BoxApel3.transform.position) < 3)
+        if (Vector3.Distance(transform.position,soal.BoxApel3.transform.position) < 3)
         {
             soal.tambahApel();
         }
+        Cursor.SetCursor(soal.handCursor, new Vector2(50, 50), CursorMode.ForceSoftware);
+
         transform.position = _originalPosition;
         _angkat = false;
         _source.PlayOneShot(_lempar);
@@ -49,5 +54,14 @@ public class DD_Apel_Keranjang : MonoBehaviour
     Vector2 GetMousePos()
     {
         return Camera.main.ScreenToWorldPoint(Input.mousePosition);
+    }
+
+    public void OnMouseEnter()
+    {
+        Cursor.SetCursor(soal.handCursor, new Vector2(50, 50), CursorMode.ForceSoftware);
+    }
+    public void OnMouseExit()
+    {
+        Cursor.SetCursor(soal.cursorImage, new Vector2(30, 10), CursorMode.ForceSoftware);
     }
 }

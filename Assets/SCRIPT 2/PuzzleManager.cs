@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class PuzzleManager : MonoBehaviour
 {
+    [SerializeField] Texture2D cursorImage;
+
     [SerializeField] private List<Sprite> SpriteHuruf;
     [SerializeField] private List<Sprite> SpriteSlotHuruf;
     [SerializeField] private List<PuzzlePieces> piecePrefabs;
@@ -42,6 +44,8 @@ public class PuzzleManager : MonoBehaviour
 
     void Start()
     {
+        Cursor.SetCursor(cursorImage, new Vector2(30, 10), CursorMode.ForceSoftware);
+
         PapanGameOver.SetActive(false);
         PauseMenu.SetActive(false);
         AlertBenar.SetActive(false);
