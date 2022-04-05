@@ -4379,7 +4379,7 @@ MonoBehaviour:
   _benar: {fileID: 8300000, guid: abc440a02e799a343966d9fd428bb0c8, type: 3}
   _salah: {fileID: 0}
   _gameover: {fileID: 8300000, guid: f666dc94ff8d18f45b5658459fe1c08d, type: 3}
-  jumlahSoal: 1
+  jumlahSoal: 5
   slotParent: {fileID: 494498651}
   pieceParent: {fileID: 1394500810}
   posHewan: {fileID: 379633815}

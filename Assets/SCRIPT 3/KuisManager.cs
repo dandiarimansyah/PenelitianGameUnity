@@ -26,10 +26,9 @@ public class KuisManager : MonoBehaviour
     [SerializeField] private AudioClip _benar, _salah, _gameover;
     [SerializeField] private AudioClip[] m_audioAngka;
 
-    HashSet<int> listMuncul = new HashSet<int>();
-    HashSet<int> JenisTerpilih = new HashSet<int>();
-    HashSet<int> TanganTerpilih = new HashSet<int>();
-    HashSet<int> simpanUrutan = new HashSet<int>();
+    List<int> listMuncul = new List<int>();
+    List<int> JenisTerpilih = new List<int>();
+    List<int> TanganTerpilih = new List<int>();
 
     //private List<int> JenisTerpilih = new List<int>();
     public int jumlahSoal = 5;
@@ -55,6 +54,8 @@ public class KuisManager : MonoBehaviour
     void Start()
     {
         Cursor.SetCursor(cursorImage, new Vector2(30,10), CursorMode.ForceSoftware);
+        
+        listMuncul.Clear();
         
         PapanGameOver.SetActive(false);
         PauseMenu.SetActive(false);
@@ -91,9 +92,7 @@ public class KuisManager : MonoBehaviour
         jawabanAngka = 0;
         isWin = false;
         JenisTerpilih.Clear();
-        JenisTerpilih.TrimExcess();
         TanganTerpilih.Clear();
-        TanganTerpilih.TrimExcess();
 
         //Menentukan Random Kendaraan       
         kendaraanTerpilih = RandomAll(7, listMuncul);
@@ -198,7 +197,7 @@ public class KuisManager : MonoBehaviour
         }
     }
 
-    public int RandomAll(int jumlah, HashSet<int> Array)
+    public int RandomAll(int jumlah, List<int> Array)
     {
         var angka = 0;
         do

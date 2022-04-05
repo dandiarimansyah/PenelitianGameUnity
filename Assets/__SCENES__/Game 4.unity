@@ -5923,6 +5923,12 @@ MonoBehaviour:
   - {fileID: 21300000, guid: a84353746f1ad5c47ae6447afac92322, type: 3}
   - {fileID: 21300000, guid: e52be4341338558449dd8a606827121b, type: 3}
   - {fileID: 21300000, guid: 8cbdcc33bbe607541acbb68b8ece49f1, type: 3}
+  - {fileID: 21300000, guid: d7e1cacf22834dd4191ce0c3b595c737, type: 3}
+  - {fileID: 21300000, guid: b6ae295cf8d103247bbaa67743634ed6, type: 3}
+  - {fileID: 21300000, guid: eb20cd27188ae3e4b8bec9cefa26eab7, type: 3}
+  - {fileID: 21300000, guid: 086934534096a794dba325dd54cc0543, type: 3}
+  - {fileID: 21300000, guid: f615e24e038aa9445ad8d73e29d4fec5, type: 3}
+  - {fileID: 21300000, guid: 4952a6c44f542a344a8ee7aef053467d, type: 3}
   - {fileID: 21300000, guid: 70a8b48a9140f224b8799638b4739fc7, type: 3}
   - {fileID: 21300000, guid: 95d397c7e2ed31a43a529420138e39fe, type: 3}
   - {fileID: 21300000, guid: dc3b7eb73e287ff4ab6779ed04c20f1b, type: 3}
@@ -5960,6 +5966,12 @@ MonoBehaviour:
   - {fileID: 21300000, guid: a84353746f1ad5c47ae6447afac92322, type: 3}
   - {fileID: 21300000, guid: e52be4341338558449dd8a606827121b, type: 3}
   - {fileID: 21300000, guid: 8cbdcc33bbe607541acbb68b8ece49f1, type: 3}
+  - {fileID: 21300000, guid: d7e1cacf22834dd4191ce0c3b595c737, type: 3}
+  - {fileID: 21300000, guid: b6ae295cf8d103247bbaa67743634ed6, type: 3}
+  - {fileID: 21300000, guid: eb20cd27188ae3e4b8bec9cefa26eab7, type: 3}
+  - {fileID: 21300000, guid: 086934534096a794dba325dd54cc0543, type: 3}
+  - {fileID: 21300000, guid: f615e24e038aa9445ad8d73e29d4fec5, type: 3}
+  - {fileID: 21300000, guid: 4952a6c44f542a344a8ee7aef053467d, type: 3}
   m_Hewan_Tanduk:
   - {fileID: 21300000, guid: 4124be733a5e08849bc57ed5d503f4ac, type: 3}
   - {fileID: 21300000, guid: 291a5907dccc60849b8dd92e48075103, type: 3}
@@ -5992,7 +6004,7 @@ MonoBehaviour:
   _salah: {fileID: 8300000, guid: 08ac7f51b3500b340928d8b2a33748ee, type: 3}
   _nextGame: {fileID: 8300000, guid: 49e192844005df64bba707e9901dee0a, type: 3}
   _gameover: {fileID: 8300000, guid: f666dc94ff8d18f45b5658459fe1c08d, type: 3}
-  jumlahSoal: 1
+  jumlahSoal: 5
   PapanGameOver: {fileID: 1341480102}
   PauseMenu: {fileID: 777008362}
 --- !u!82 &1488922560

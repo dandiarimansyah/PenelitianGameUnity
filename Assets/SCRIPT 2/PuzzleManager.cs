@@ -29,7 +29,7 @@ public class PuzzleManager : MonoBehaviour
     private int sumPuzzle = 0;
     private int urutanTerpilih = 0;
     private int[] sudahMuncul;
-    HashSet<int> listMuncul = new HashSet<int>();
+    List<int> listMuncul = new List<int>();
 
 
     private char tempChar;
@@ -95,6 +95,8 @@ public class PuzzleManager : MonoBehaviour
 
     void Spawn()
     {
+        Debug.Log(listMuncul.Count());
+
         //Permainan Selesai
         if (countSoal >= jumlahSoal)
         {
@@ -123,7 +125,6 @@ public class PuzzleManager : MonoBehaviour
         //Shuffling Susunan Kata
         char[] arraysShuffledWord = Shuffler(word); //U,D,U,K
         string shuffledWord = new string(arraysShuffledWord); //"UDUK"
-        Debug.Log(shuffledWord);
 
         // Munculin gambar hewan
         Vector3 posHewan2 = hewan.transform.position;

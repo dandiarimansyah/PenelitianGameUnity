@@ -31,11 +31,11 @@ public class Game4Manager : MonoBehaviour
     [SerializeField] private AudioSource _source;
     [SerializeField] private AudioClip _benar, _salah, _nextGame, _gameover;
 
-    HashSet<int> listMuncul = new HashSet<int>();
-    HashSet<int> HewanTerpilih = new HashSet<int>();
-    HashSet<int> Ditempati = new HashSet<int>();
-    HashSet<int> TempatBenar = new HashSet<int>();
-    HashSet<string> NamaHewanTerpilih = new HashSet<string>();
+    List<int> listMuncul = new List<int>();
+    List<int> HewanTerpilih = new List<int>();
+    List<int> Ditempati = new List<int>();
+    List<int> TempatBenar = new List<int>();
+    List<string> NamaHewanTerpilih = new List<string>();
 
     private Sprite[] ArrayTerpilih;
 
@@ -56,10 +56,15 @@ public class Game4Manager : MonoBehaviour
     {
         Cursor.SetCursor(cursorImage, new Vector2(30, 10), CursorMode.ForceSoftware);
 
+        listMuncul.Clear();
+
         countSoal = 0;
         jumlahHewan = m_SemuaHewan.Count();
         PapanGameOver.SetActive(false);
         PauseMenu.SetActive(false);
+
+        Debug.Log("Start "+listMuncul.Count());
+
         MulaiGame();
     }
     public void ResetGame()
@@ -92,10 +97,6 @@ public class Game4Manager : MonoBehaviour
         HewanTerpilih.Clear();
         Ditempati.Clear();
         TempatBenar.Clear();
-        NamaHewanTerpilih.TrimExcess();
-        HewanTerpilih.TrimExcess();
-        Ditempati.TrimExcess();
-        TempatBenar.TrimExcess();
 
         for (int i = 0; i < 10; i++)
         {
@@ -139,7 +140,7 @@ public class Game4Manager : MonoBehaviour
         SusunGambarJawaban(jumlahJawaban, ArrayTerpilih);
     }
 
-    public int RandomAll(int jumlah, HashSet<int> Array)
+    public int RandomAll(int jumlah, List<int> Array)
     {
         var angka = 0;
         do
