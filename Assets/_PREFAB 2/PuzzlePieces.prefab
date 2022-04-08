@@ -101,6 +101,34 @@ MonoBehaviour:
   _source: {fileID: 1370244597110245112}
   _ambil: {fileID: 8300000, guid: aec4c628543b89b4cb8155cdea0fbddd, type: 3}
   _lempar: {fileID: 8300000, guid: 2faa152bb6836644bb1bdb42dccddfe0, type: 3}
+  SuaraAbjad:
+  - {fileID: 8300000, guid: 2697832c50aabdf4d847cd020b1ddced, type: 3}
+  - {fileID: 8300000, guid: 81c1243d51b4b3541aaaf15b9977e5e1, type: 3}
+  - {fileID: 8300000, guid: 11bec396bbb9b5e4a9c586420401cc18, type: 3}
+  - {fileID: 8300000, guid: 44d2a321041fa5743befa4dd03189aff, type: 3}
+  - {fileID: 8300000, guid: 49ffc281dc6e1a8418ccdcf329f3dda5, type: 3}
+  - {fileID: 8300000, guid: ef99d4429650ab34e93a2b404a1a4cde, type: 3}
+  - {fileID: 8300000, guid: 3fbe470dae3fdeb4aa18aea84566f245, type: 3}
+  - {fileID: 8300000, guid: 0fd95827115e5aa42a326ade98c2e6a6, type: 3}
+  - {fileID: 8300000, guid: b482a75f65a57eb4fb3cdf4fef015037, type: 3}
+  - {fileID: 8300000, guid: ab66cc6bfdb217c468529d333d27849b, type: 3}
+  - {fileID: 8300000, guid: 5c0d8807e89533842ba84e1a0c3081ca, type: 3}
+  - {fileID: 8300000, guid: 2edaa91c98f13854b8e9d5330356bae6, type: 3}
+  - {fileID: 8300000, guid: bc6b67f2b833cd74088de32384effb01, type: 3}
+  - {fileID: 8300000, guid: b775c6418e7fb6c4ca94110232521193, type: 3}
+  - {fileID: 8300000, guid: b048a5b2ffb43dd4a9912d73f77c0b82, type: 3}
+  - {fileID: 8300000, guid: 3061b0a3c3d96e447b9435a717ed9e06, type: 3}
+  - {fileID: 8300000, guid: 9820f2c7e0b96dc45a2afd937987d957, type: 3}
+  - {fileID: 8300000, guid: 08eab1376c040cc45855be12dfd8741b, type: 3}
+  - {fileID: 8300000, guid: 296cc6af29bfb5740801dd5534f4701d, type: 3}
+  - {fileID: 8300000, guid: 9c2e55349efacd242a8791cb11b0e410, type: 3}
+  - {fileID: 8300000, guid: 0819bd0cab48eee449e28d6d31b73745, type: 3}
+  - {fileID: 8300000, guid: 1ecdce9a0d53c9d46911e13d3cba1ee0, type: 3}
+  - {fileID: 8300000, guid: 48b16f7aa7c9e4948851725f3f6605b3, type: 3}
+  - {fileID: 8300000, guid: 59ee3c178d9e5e647a4330670b4aafce, type: 3}
+  - {fileID: 8300000, guid: 8b85b944a5e16be499ab198a5ac1e58b, type: 3}
+  - {fileID: 8300000, guid: 9f88395e5f731b0459ce1c618ee067f4, type: 3}
+  value: 0
 --- !u!82 &1370244597110245112
 AudioSource:
   m_ObjectHideFlags: 0

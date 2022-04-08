@@ -6,7 +6,7 @@ public class PuzzleSlot : MonoBehaviour
 {
     public SpriteRenderer Renderer;
     public char value;
-    public bool _placed=false;
+    public bool _placed = false;
 
     [SerializeField] private AudioSource _source;
     [SerializeField] private AudioClip _suara;
@@ -31,15 +31,5 @@ public class PuzzleSlot : MonoBehaviour
     public char getValue()
     {
         return value;
-    }
-
-    void Start()
-    {
-
-    }
-
-    void Update()
-    {
-        
     }
 }

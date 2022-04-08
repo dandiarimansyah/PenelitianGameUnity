@@ -41,6 +41,7 @@ public class PuzzleManager : MonoBehaviour
     [SerializeField] private Transform slotParent, pieceParent, posHewan;
     public GameObject hewan;
     public GameObject[] semuaHewan;
+    //public AudioClip[] SuaraAbjad;
 
     void Start()
     {
@@ -95,8 +96,6 @@ public class PuzzleManager : MonoBehaviour
 
     void Spawn()
     {
-        Debug.Log(listMuncul.Count());
-
         //Permainan Selesai
         if (countSoal >= jumlahSoal)
         {
@@ -184,7 +183,10 @@ public class PuzzleManager : MonoBehaviour
 
     IEnumerator NextGame()
     {
+        yield return new WaitForSeconds(waktuNext-0.3f);
+
         AlertBenar.SetActive(true);
+        _source.PlayOneShot(_benar);
 
         yield return new WaitForSeconds(waktuNext);
 
@@ -215,7 +217,6 @@ public class PuzzleManager : MonoBehaviour
             if(sum == sumPuzzle)
             {
                 isSpawned = false;
-                _source.PlayOneShot(_benar);
 
                 StartCoroutine(NextGame());
 

@@ -10,6 +10,8 @@ public class PuzzlePieces : MonoBehaviour
     [SerializeField] private AudioSource _source;
     [SerializeField] private AudioClip _ambil, _lempar;
 
+    public AudioClip[] SuaraAbjad;
+
     public char value;
     private bool _angkat, _placed;
     private Vector2 _offset, _originalPosition;
@@ -40,7 +42,6 @@ public class PuzzlePieces : MonoBehaviour
         _originalPosition = transform.position;
     }
 
-
     // Update is called once per frame
     void Update()
     {
@@ -69,6 +70,9 @@ public class PuzzlePieces : MonoBehaviour
         {
             if (Vector2.Distance(transform.position, puzzleSlot.transform.position) < 1 && !puzzleSlot._placed)
             {
+                int index = ((int)puzzleSlot.getValue() % 32) - 1;
+                _source.PlayOneShot(SuaraAbjad[index]); 
+
                 transform.position = puzzleSlot.transform.position;
                 puzzleSlot.Placed();
                 _placed = true;

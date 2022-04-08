@@ -23,6 +23,8 @@ public class Game4Manager : MonoBehaviour
     [SerializeField] private Sprite[] m_Hewan_Tanduk;
     [SerializeField] private Sprite[] m_Hewan_Kaki2;
     [SerializeField] private Sprite[] m_Hewan_Kaki4;
+    [SerializeField] private Sprite[] m_Serangga;
+
     [SerializeField] private Sprite BorderNormal;
     [SerializeField] private Sprite BorderBenar;
     [SerializeField] private Sprite BorderSalah;
@@ -43,10 +45,13 @@ public class Game4Manager : MonoBehaviour
     private int countSoal;
     private int jumlahJawaban;
     private int jumlahHewan;
+    private int soalTersedia;
+    private int soalSebelumnya = -1;
     private int countJumlahJawaban;
     private int kategoriTerpilih;
 
     private float waktuNext = 1f;
+    private bool[] isClick = new bool[10];
 
     //Variabel GameOver
     [SerializeField] private GameObject PapanGameOver;
@@ -60,10 +65,10 @@ public class Game4Manager : MonoBehaviour
 
         countSoal = 0;
         jumlahHewan = m_SemuaHewan.Count();
+        soalTersedia = m_KategoriSoal.Count();
+
         PapanGameOver.SetActive(false);
         PauseMenu.SetActive(false);
-
-        Debug.Log("Start "+listMuncul.Count());
 
         MulaiGame();
     }
@@ -103,12 +108,27 @@ public class Game4Manager : MonoBehaviour
             m_Border[i].GetComponent<Image>().sprite = BorderNormal;
         }
 
+        for (int i = 0; i < isClick.Length; i++)
+        {
+            isClick[i] = false;
+        }
+
         //Menentukan Soal
-        kategoriTerpilih = RandomAll(5, listMuncul);
+
+        if (countSoal - 1 == soalTersedia)
+        {
+            soalSebelumnya = kategoriTerpilih;
+            listMuncul.Clear();
+            kategoriTerpilih = RandomAll(soalTersedia, listMuncul, soalSebelumnya);
+        }
+        else
+        {
+            kategoriTerpilih = RandomAll(soalTersedia, listMuncul);
+        }
 
         KategoriSoal.gameObject.GetComponent<SpriteRenderer>().sprite = m_KategoriSoal[kategoriTerpilih];
         TulisanSoal.gameObject.GetComponent<SpriteRenderer>().sprite = m_TulisanSoal[kategoriTerpilih];
-        
+
         //Menentukan Array dari kategori yang terpilih
         switch (kategoriTerpilih)
         {
@@ -127,6 +147,9 @@ public class Game4Manager : MonoBehaviour
             case 4:
                 ArrayTerpilih = m_Hewan_Kaki4;
                 break;
+            case 5:
+                ArrayTerpilih = m_Serangga;
+                break;
         }
 
         for (int i = 0; i < ArrayTerpilih.Count(); i++)
@@ -140,13 +163,13 @@ public class Game4Manager : MonoBehaviour
         SusunGambarJawaban(jumlahJawaban, ArrayTerpilih);
     }
 
-    public int RandomAll(int jumlah, List<int> Array)
+    public int RandomAll(int jumlah, List<int> Array, int sebelumnya = -1)
     {
         var angka = 0;
         do
         {
             angka = Random.Range(0, jumlah);
-        } while (Array.Contains(angka));
+        } while (Array.Contains(angka) || Array.Contains(sebelumnya));
 
         Array.Add(angka);
 
@@ -190,11 +213,15 @@ public class Game4Manager : MonoBehaviour
 
     public void KlikTombol(int urutan)
     {
+        if (isClick[urutan]) return;
+
         if (TempatBenar.Contains(urutan))
         {
             _source.PlayOneShot(_benar);
             m_Border[urutan].GetComponent<Image>().sprite = BorderBenar;
             countJumlahJawaban++;
+
+            isClick[urutan] = true;
 
             if (countJumlahJawaban == jumlahJawaban)
             {

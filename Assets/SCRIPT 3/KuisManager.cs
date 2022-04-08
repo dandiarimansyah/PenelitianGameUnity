@@ -43,6 +43,7 @@ public class KuisManager : MonoBehaviour
 
     private int jawabanAngka;
     private int angkaSebelum;
+    private int soalSebelumnya = -1;
 
     int[] urutanAcak = new int[3];
     private float waktuNext = 1.2f;
@@ -94,8 +95,19 @@ public class KuisManager : MonoBehaviour
         JenisTerpilih.Clear();
         TanganTerpilih.Clear();
 
-        //Menentukan Random Kendaraan       
-        kendaraanTerpilih = RandomAll(7, listMuncul);
+        //Menentukan Random Kendaraan
+
+        if (countSoal - 1 == jumlah)
+        {
+            soalSebelumnya = kendaraanTerpilih;
+            listMuncul.Clear();
+            kendaraanTerpilih = RandomAll(jumlah, listMuncul, soalSebelumnya);
+        }
+        else
+        {
+            kendaraanTerpilih = RandomAll(jumlah, listMuncul);
+        }
+
         JenisTerpilih.Add(kendaraanTerpilih);
 
         //Ganti Gambar Soal
@@ -197,13 +209,13 @@ public class KuisManager : MonoBehaviour
         }
     }
 
-    public int RandomAll(int jumlah, List<int> Array)
+    public int RandomAll(int jumlah, List<int> Array, int sebelumnya = -1)
     {
         var angka = 0;
         do
         {
             angka = Random.Range(0, jumlah);
-        } while (Array.Contains(angka));
+        } while (Array.Contains(angka) || Array.Contains(sebelumnya));
 
         Array.Add(angka);
 

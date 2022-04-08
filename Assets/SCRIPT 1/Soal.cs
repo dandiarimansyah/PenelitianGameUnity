@@ -13,6 +13,7 @@ public class Soal : MonoBehaviour
     public GameObject angkaDummy1;  
     public GameObject angkaDummy2;
     public GameObject result;
+    public GameObject AngkaJawaban;
     public GameObject operand;  
 
     //Tempat soal gambar buah
@@ -165,11 +166,11 @@ public class Soal : MonoBehaviour
         angkaDummy2 = angka2;
 
         Destroy(result.gameObject);
-        GameObject angka3 = Instantiate(m_Angka[answerValue], PositionAngka3, Quaternion.identity);
+        GameObject angka3 = Instantiate(AngkaJawaban, PositionAngka3, Quaternion.identity);
         result = angka3;
-        
+
         //Operand
-        if(isAdd)
+        if (isAdd)
         {
             operand.gameObject.GetComponent<SpriteRenderer>().sprite = m_Operand[0];
         }
