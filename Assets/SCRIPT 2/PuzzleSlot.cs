@@ -6,6 +6,7 @@ public class PuzzleSlot : MonoBehaviour
 {
     public SpriteRenderer Renderer;
     public char value;
+    public int posisi;
     public bool _placed = false;
 
     [SerializeField] private AudioSource _source;
@@ -22,14 +23,26 @@ public class PuzzleSlot : MonoBehaviour
         //_source.PlayOneShot(_suara);
     }
 
-    public void setSpriteNValue(char newValue, Sprite newSprite)
+    public void setSpriteNValue(int newPos, char newValue, Sprite newSprite)
     {
         value = newValue;
+        posisi = newPos;
         GetComponent<SpriteRenderer>().sprite = newSprite;
+    }
+
+    public void setColor()
+    {
+        GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
+
     }
 
     public char getValue()
     {
         return value;
+    }
+
+    public int getPosisi()
+    {
+        return posisi;
     }
 }

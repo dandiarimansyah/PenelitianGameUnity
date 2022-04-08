@@ -21,19 +21,19 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: c736f8955839c7e4a8428e4223f16e3b, type: 3}
     - target: {fileID: 5405867944704058198, guid: fe85782ab63cff44d909c37fbddf608e, type: 3}
       propertyPath: m_Color.a
-      value: 1
+      value: 0.29803923
       objectReference: {fileID: 0}
     - target: {fileID: 5405867944704058198, guid: fe85782ab63cff44d909c37fbddf608e, type: 3}
       propertyPath: m_Color.b
-      value: 1
+      value: 0.5188679
       objectReference: {fileID: 0}
     - target: {fileID: 5405867944704058198, guid: fe85782ab63cff44d909c37fbddf608e, type: 3}
       propertyPath: m_Color.g
-      value: 1
+      value: 0.5188679
       objectReference: {fileID: 0}
     - target: {fileID: 5405867944704058198, guid: fe85782ab63cff44d909c37fbddf608e, type: 3}
       propertyPath: m_Color.r
-      value: 1
+      value: 0.5188679
       objectReference: {fileID: 0}
     - target: {fileID: 5405867944704058198, guid: fe85782ab63cff44d909c37fbddf608e, type: 3}
       propertyPath: m_SortingLayer

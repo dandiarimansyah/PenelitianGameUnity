@@ -12,7 +12,11 @@ public class PuzzlePieces : MonoBehaviour
 
     public AudioClip[] SuaraAbjad;
 
+    public GameObject PM;
+
     public char value;
+    public int posisi;
+    private int antrian2;
     private bool _angkat, _placed;
     private Vector2 _offset, _originalPosition;
     private List<PuzzleSlot> puzzleSlots = new List<PuzzleSlot>();
@@ -26,9 +30,10 @@ public class PuzzlePieces : MonoBehaviour
         return _placed;
     }
 
-    public void setSpriteNValue(char newValue, Sprite newSprite)
+    public void setSpriteNValue(int newPos, char newValue, Sprite newSprite)
     {
         value = newValue;
+        posisi = newPos;
         GetComponent<SpriteRenderer>().sprite = newSprite;
     }
 
@@ -37,9 +42,16 @@ public class PuzzlePieces : MonoBehaviour
         return value;
     }
 
+    public int getPosisi()
+    {
+        return posisi;
+    }
+
     private void Awake()
     {
         _originalPosition = transform.position;
+
+        PM = GameObject.Find("PuzzleManager");
     }
 
     // Update is called once per frame
@@ -68,7 +80,9 @@ public class PuzzlePieces : MonoBehaviour
                                 
         foreach (PuzzleSlot puzzleSlot in slots)
         {
-            if (Vector2.Distance(transform.position, puzzleSlot.transform.position) < 1 && !puzzleSlot._placed)
+            antrian2 = PM.GetComponent<PuzzleManager>().antrian;
+
+            if (Vector2.Distance(transform.position, puzzleSlot.transform.position) < 1 && !puzzleSlot._placed && puzzleSlot.getPosisi() == antrian2)
             {
                 int index = ((int)puzzleSlot.getValue() % 32) - 1;
                 _source.PlayOneShot(SuaraAbjad[index]); 
@@ -76,6 +90,9 @@ public class PuzzlePieces : MonoBehaviour
                 transform.position = puzzleSlot.transform.position;
                 puzzleSlot.Placed();
                 _placed = true;
+
+                var script = PM.GetComponent<PuzzleManager>();
+                script.setAntrian(antrian2 + 1);
             }
         }
         if(!_placed)

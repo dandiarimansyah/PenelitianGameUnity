@@ -37,6 +37,7 @@ public class PuzzleManager : MonoBehaviour
     public int jumlahSoal = 10;
     private int countSoal = 0;
     private float waktuNext = 1f;
+    public int antrian;
 
     [SerializeField] private Transform slotParent, pieceParent, posHewan;
     public GameObject hewan;
@@ -62,6 +63,8 @@ public class PuzzleManager : MonoBehaviour
     {
         char[] array = word.ToCharArray();
         int n = array.Length-1; //n=4
+        int index1 = array[0];
+
         for (int i = 0; i < n - 1; i++) //0-3 
         {
             int rnd = Random.Range(i, n);
@@ -69,6 +72,14 @@ public class PuzzleManager : MonoBehaviour
             array[rnd] = array[i];
             array[i] = tempChar;
         }
+
+        if (index1 == array[0])
+        {
+            tempChar = array[0];
+            array[0] = array[3];
+            array[3] = tempChar;
+        }
+
         return array;
     }
 
@@ -94,6 +105,11 @@ public class PuzzleManager : MonoBehaviour
         return range.ElementAt(index);
     }
 
+    public void setAntrian(int angka)
+    {
+        antrian = angka;
+    }
+
     void Spawn()
     {
         //Permainan Selesai
@@ -102,6 +118,8 @@ public class PuzzleManager : MonoBehaviour
             PermainanSelesai();
             return;
         }
+
+        antrian = 0;
 
         //Ini tinggal diganti sesuaiin nilai randomSumHuruf tinggal pake if else;
         var content = txtKataHuruf.text;
@@ -139,6 +157,7 @@ public class PuzzleManager : MonoBehaviour
         var listSlot = slotPrefabs.Take(sumPuzzle).ToList();
         var listPiece = piecePrefabs.Take(sumPuzzle).ToList();
 
+
         //spawning huruf
         for (int i = 0; i < arrayWord.Length-1; i++)
         {
@@ -146,8 +165,8 @@ public class PuzzleManager : MonoBehaviour
             var spawnPiece = Instantiate(listPiece[i], pieceParent.GetChild(i).position, Quaternion.identity);
 
             //Ganti Sprite sesuai dengan kata yang digenerate;
-            spawnSlot.setSpriteNValue(arrayWord[i],SpriteSlotHuruf[getIndexForSprite(arrayWord[i])-1]);
-            spawnPiece.setSpriteNValue(arraysShuffledWord[i],SpriteHuruf[getIndexForSprite(arraysShuffledWord[i])-1]);
+            spawnSlot.setSpriteNValue(i, arrayWord[i],SpriteSlotHuruf[getIndexForSprite(arrayWord[i])-1]);
+            spawnPiece.setSpriteNValue(i, arraysShuffledWord[i],SpriteHuruf[getIndexForSprite(arraysShuffledWord[i])-1]);
 
             //Buat nanti Cek udah placed semua apa belum
             
@@ -208,6 +227,11 @@ public class PuzzleManager : MonoBehaviour
             int sum = 0;
             foreach(PuzzleSlot slot in listSlots)
             {
+                if (slot.getPosisi() == antrian)
+                {
+                    slot.setColor();
+                }
+
                 if(slot._placed)
                 {
                     sum++;
