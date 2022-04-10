@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class MainMenu : MonoBehaviour
 {
     [SerializeField] Texture2D cursorImageMenu;
+    public Animator transisi;
 
     // Start is called before the first frame update
     void Start()
@@ -13,14 +14,18 @@ public class MainMenu : MonoBehaviour
         Cursor.SetCursor(cursorImageMenu, new Vector2(30,10), CursorMode.ForceSoftware);
     }
 
-    public void PilihGame(int pilihanGame)
+    public void LoadScenePilih(string Scene)
     {
-        SceneManager.LoadScene("Game "+ pilihanGame);
+        Time.timeScale = 1f;
+        StartCoroutine(LoadScenes(Scene));
     }
 
-    public void BackMainMenu()
+    IEnumerator LoadScenes(string sceneTerpilih)
     {
-        SceneManager.LoadScene("Main Menu");
+        transisi.SetTrigger("Start");
+        yield return new WaitForSeconds(1f);
+        AudioListener.pause = false;
+        SceneManager.LoadScene(sceneTerpilih);
     }
 
     public void QuitGame()
