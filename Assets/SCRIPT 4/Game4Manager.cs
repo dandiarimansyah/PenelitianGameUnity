@@ -32,6 +32,7 @@ public class Game4Manager : MonoBehaviour
 
     [SerializeField] private AudioSource _source;
     [SerializeField] private AudioClip _benar, _salah, _nextGame, _gameover;
+    [SerializeField] private AudioClip[] suaraSoal;
 
     List<int> listMuncul = new List<int>();
     List<int> HewanTerpilih = new List<int>();
@@ -126,6 +127,8 @@ public class Game4Manager : MonoBehaviour
             kategoriTerpilih = RandomAll(soalTersedia, listMuncul);
         }
 
+        //Soal Atas
+        _source.PlayOneShot(suaraSoal[kategoriTerpilih]);
         KategoriSoal.gameObject.GetComponent<SpriteRenderer>().sprite = m_KategoriSoal[kategoriTerpilih];
         TulisanSoal.gameObject.GetComponent<SpriteRenderer>().sprite = m_TulisanSoal[kategoriTerpilih];
 

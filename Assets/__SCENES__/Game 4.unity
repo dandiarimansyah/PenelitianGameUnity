@@ -2376,7 +2376,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 3146052d4e2014441beba964226da797, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.208
+  m_Volume: 0.12
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -5504,6 +5504,13 @@ MonoBehaviour:
   _salah: {fileID: 8300000, guid: 08ac7f51b3500b340928d8b2a33748ee, type: 3}
   _nextGame: {fileID: 8300000, guid: 49e192844005df64bba707e9901dee0a, type: 3}
   _gameover: {fileID: 8300000, guid: f666dc94ff8d18f45b5658459fe1c08d, type: 3}
+  suaraSoal:
+  - {fileID: 8300000, guid: 6ae4a11ff0ecfff4eafa3b3d10e2e87b, type: 3}
+  - {fileID: 8300000, guid: a5599ca5876509b4295f183c88d88876, type: 3}
+  - {fileID: 8300000, guid: 83d3b2475d6b0ba4a8eb55e2e870bf9f, type: 3}
+  - {fileID: 8300000, guid: 608322b9cfbfe5d4e9046e2e5d6357dc, type: 3}
+  - {fileID: 8300000, guid: 7e5776c385c5dab4e97771e5c9b61b51, type: 3}
+  - {fileID: 8300000, guid: a655b8fd836ebb843aa6f6250a8f01b7, type: 3}
   jumlahSoal: 10
   PapanGameOver: {fileID: 1341480102}
   PauseMenu: {fileID: 777008362}

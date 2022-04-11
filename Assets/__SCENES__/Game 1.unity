@@ -2432,6 +2432,18 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4692608953112299963, guid: aa35a4b638c3ac643b2fdebbe6d2ed9e, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.7463278
+      objectReference: {fileID: 0}
+    - target: {fileID: 4692608953112299963, guid: aa35a4b638c3ac643b2fdebbe6d2ed9e, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.74632776
+      objectReference: {fileID: 0}
+    - target: {fileID: 4692608953112299963, guid: aa35a4b638c3ac643b2fdebbe6d2ed9e, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.7463278
+      objectReference: {fileID: 0}
+    - target: {fileID: 4692608953112299963, guid: aa35a4b638c3ac643b2fdebbe6d2ed9e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -7.46
       objectReference: {fileID: 0}
@@ -2802,7 +2814,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1250441855}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.41, y: 6.26, z: 9.990862}
+  m_LocalPosition: {x: -0.41, y: 6.26, z: 0}
   m_LocalScale: {x: 0.6456391, y: 0.6456391, z: 0.6456391}
   m_Children: []
   m_Father: {fileID: 1343189893}
@@ -3489,6 +3501,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CameraPause
       objectReference: {fileID: 0}
+    - target: {fileID: 4661227913784884756, guid: 431ca6fc4dfe5354d8e06b4128c78d85, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 431ca6fc4dfe5354d8e06b4128c78d85, type: 3}
 --- !u!1 &1585991671 stripped
@@ -3577,7 +3593,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1658566785}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 6.67, y: 6.2546, z: 8.791959}
+  m_LocalPosition: {x: 6.67, y: 6.2546, z: 0}
   m_LocalScale: {x: 0.65123975, y: 0.61165375, z: 0.59349287}
   m_Children: []
   m_Father: {fileID: 1343189893}
