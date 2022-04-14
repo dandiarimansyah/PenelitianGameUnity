@@ -10,10 +10,10 @@ public class Soal : MonoBehaviour
 
     public GameObject originalGameObject;
     //Tempat soal angka
-    public GameObject angkaDummy1;  
+    public GameObject angkaDummy1;
     public GameObject angkaDummy2;
     public GameObject result;
-    public GameObject AngkaJawaban;
+    public Sprite Kosong;
     public GameObject operand;  
 
     //Tempat soal gambar buah
@@ -40,12 +40,12 @@ public class Soal : MonoBehaviour
     //Angka Pertama
     private int lowFirstValue = 1;
     private int highFirstValue = 9;
-    private int firstValue;
+    public int firstValue;
 
     //Angka Kedua
     private int lowSecondValue = 1;
     private int highSecondValue = 9;
-    private int SecondValue;
+    public int SecondValue;
 
     //Jawaban soal
     public int finalValue;
@@ -54,7 +54,7 @@ public class Soal : MonoBehaviour
     private int countSoal = 0;
 
     //List sprite angka & buah
-    public GameObject[] m_Angka;
+    public Sprite[] m_AngkaSprite;
     public GameObject[] m_PapanBuah;
     public GameObject[] m_PapanBuah2;
     public Sprite[] m_Operand;
@@ -118,10 +118,8 @@ public class Soal : MonoBehaviour
 
             //Muncul Papan Game Over
             PapanGameOver.SetActive(true);
-            _source.PlayOneShot(_gameover);
-            
+            _source.PlayOneShot(_gameover);            
         }
-
     }
 
     public void generateSoal()
@@ -141,7 +139,7 @@ public class Soal : MonoBehaviour
         //Pengurangan
         if (i == 1)
         {
-            firstValue = Random.Range(lowFirstValue+1, highFirstValue);
+            firstValue = Random.Range(lowFirstValue + 1, highFirstValue);
             highSecondValue = firstValue;
             SecondValue = Random.Range(lowSecondValue, highSecondValue);
             finalValue = firstValue - SecondValue;
@@ -151,23 +149,9 @@ public class Soal : MonoBehaviour
 
     public void isiAngkaSoal()
     {
-        //Ambil posisi angka
-        Vector3 PositionAngka1 = angkaDummy1.transform.position;
-        Vector3 PositionAngka2 = angkaDummy2.transform.position;
-        Vector3 PositionAngka3 = result.transform.position;
-
-        //Destroy Dummy, Initiate Prefab
-        Destroy(angkaDummy1.gameObject);
-        GameObject angka1 = Instantiate(m_Angka[firstValue], PositionAngka1, Quaternion.identity);
-        angkaDummy1 = angka1;
-
-        Destroy(angkaDummy2.gameObject);
-        GameObject angka2 = Instantiate(m_Angka[SecondValue], PositionAngka2, Quaternion.identity);
-        angkaDummy2 = angka2;
-
-        Destroy(result.gameObject);
-        GameObject angka3 = Instantiate(AngkaJawaban, PositionAngka3, Quaternion.identity);
-        result = angka3;
+        angkaDummy1.gameObject.GetComponent<SpriteRenderer>().sprite = m_AngkaSprite[firstValue];
+        angkaDummy2.gameObject.GetComponent<SpriteRenderer>().sprite = m_AngkaSprite[SecondValue];
+        result.gameObject.GetComponent<SpriteRenderer>().sprite = Kosong;
 
         //Operand
         if (isAdd)
@@ -212,10 +196,8 @@ public class Soal : MonoBehaviour
         {
             answerValue ++;
         }
-        
-        Destroy(result.gameObject);
-        GameObject angka3 = Instantiate(m_Angka[answerValue], PositionAngka3, Quaternion.identity);
-        result = angka3;
+
+        result.gameObject.GetComponent<SpriteRenderer>().sprite = m_AngkaSprite[answerValue];
 
         Destroy(BoxApel3.gameObject);
         GameObject buah3 = Instantiate(m_PapanBuah2[answerValue], PositionBuah3, Quaternion.identity);
@@ -233,14 +215,11 @@ public class Soal : MonoBehaviour
         {
             answerValue --;
         }
-        
-        Destroy(result.gameObject);
-        GameObject angka3 = Instantiate(m_Angka[answerValue], PositionAngka3, Quaternion.identity);
-        result = angka3;
+
+        result.gameObject.GetComponent<SpriteRenderer>().sprite = m_AngkaSprite[answerValue];
 
         Destroy(BoxApel3.gameObject);
         GameObject buah3 = Instantiate(m_PapanBuah2[answerValue], PositionBuah3, Quaternion.identity);
         BoxApel3 = buah3;
-
     }
 }

@@ -7,8 +7,9 @@ using UnityEngine.UI;
 
 public class KuisManager : MonoBehaviour
 {
-    [SerializeField] Texture2D cursorImage;
+    public Animator A1, A2, A3;
 
+    [SerializeField] Texture2D cursorImage;
     [SerializeField] private Transform posKumpulan, posJawaban, posAlert;
 
     public GameObject GambarSoal;
@@ -46,7 +47,7 @@ public class KuisManager : MonoBehaviour
     private int soalSebelumnya = -1;
 
     int[] urutanAcak = new int[3];
-    private float waktuNext = 1.2f;
+    private float waktuNext = 1.8f;
 
     //Variabel GameOver
     [SerializeField] private GameObject PapanGameOver;
@@ -54,7 +55,7 @@ public class KuisManager : MonoBehaviour
 
     void Start()
     {
-        Cursor.SetCursor(cursorImage, new Vector2(30,10), CursorMode.ForceSoftware);
+        Cursor.SetCursor(cursorImage, new Vector2(30,10), CursorMode.Auto);
         
         listMuncul.Clear();
         
@@ -178,6 +179,20 @@ public class KuisManager : MonoBehaviour
         if (urutanAcak[jawabanDitekan] == jawabanAngka)
         {
             _source.PlayOneShot(m_audioAngka[jawabanAngka-1]);
+
+            switch (jawabanDitekan)
+            {
+                case 0:
+                    A1.SetTrigger("Trig_1");
+                    break;
+                case 1:
+                    A2.SetTrigger("Trig_2");
+                    break;
+                case 2:
+                    A3.SetTrigger("Trig_3");
+                    break;
+            }
+
             isWin = true;
         }
         else

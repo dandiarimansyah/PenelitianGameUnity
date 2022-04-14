@@ -60,7 +60,7 @@ public class Game4Manager : MonoBehaviour
 
     void Start()
     {
-        Cursor.SetCursor(cursorImage, new Vector2(30, 10), CursorMode.ForceSoftware);
+        Cursor.SetCursor(cursorImage, new Vector2(30, 10), CursorMode.Auto);
 
         listMuncul.Clear();
 
