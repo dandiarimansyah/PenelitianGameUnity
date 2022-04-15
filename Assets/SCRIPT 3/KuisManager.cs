@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class KuisManager : MonoBehaviour
 {
-    public Animator A1, A2, A3;
+    public Animator A1, A2, A3, GameOverAnim;
 
     [SerializeField] Texture2D cursorImage;
     [SerializeField] private Transform posKumpulan, posJawaban, posAlert;
@@ -24,7 +24,7 @@ public class KuisManager : MonoBehaviour
     [SerializeField] private GameObject[] m_AlertBenar;
     [SerializeField] private GameObject[] m_AlertSalah;
     [SerializeField] private AudioSource _source;
-    [SerializeField] private AudioClip _benar, _salah, _gameover;
+    [SerializeField] private AudioClip _benar, _salah, _gameover, _nextSoal;
     [SerializeField] private AudioClip[] m_audioAngka;
 
     List<int> listMuncul = new List<int>();
@@ -71,25 +71,22 @@ public class KuisManager : MonoBehaviour
 
     public void ResetGame()
     {
+        Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
-    void PermainanSelesai()
+    IEnumerator PermainanSelesai()
     {
         //Muncul Papan Game Over
         PapanGameOver.SetActive(true);
         _source.PlayOneShot(_gameover);
+        GameOverAnim.SetTrigger("Trigger");
+        yield return new WaitForSeconds(1.2f);
+        AudioListener.pause = true;
     }
 
     public void MulaiGame()
-    {
-        //Permainan Selesai
-        if (countSoal >= jumlahSoal)
-        {
-            PermainanSelesai();
-            return;
-        }
-
+    {   
         countSoal++;
         jawabanAngka = 0;
         isWin = false;
@@ -213,8 +210,17 @@ public class KuisManager : MonoBehaviour
             yield return new WaitForSeconds(waktuNext);
             m_AlertBenar[jawaban].SetActive(false);
 
-            //Ati ati komputer meleduk
-            MulaiGame();
+            //Permainan Selesai
+            if (countSoal >= jumlahSoal)
+            {
+                StartCoroutine(PermainanSelesai());
+            }
+            else
+            {
+                _source.PlayOneShot(_nextSoal);
+                yield return new WaitForSeconds(0.3f);
+                MulaiGame();
+            }
         }
         else
         {

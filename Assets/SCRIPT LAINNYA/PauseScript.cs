@@ -14,21 +14,24 @@ public class PauseScript : MonoBehaviour
 
     public void OnButtonPause()
     {
-        if (IsPause)
-        {
-            Resume();
-        }
-        else
-        {
-            Stop();
-        }
+        Debug.Log(IsPause);
+        //if (IsPause)
+        //{
+        //    Resume();
+        //}
+        //else
+        //{
+        //    Stop();
+        //}
+
+        Stop();
     }
 
     public void Resume()
     {
         PauseMenu.SetActive(false);
         Time.timeScale = 1f;
-        IsPause = false;
+        //IsPause = false;
         AudioListener.pause = SoundManager.muted;
         if(HideObjectPause != null) HideObjectPause.SetActive(true);
 
@@ -40,7 +43,7 @@ public class PauseScript : MonoBehaviour
     {
         PauseMenu.SetActive(true);
         Time.timeScale = 0f;
-        IsPause = true;
+        //IsPause = true;
         AudioListener.pause = true;
         if (HideObjectPause != null) HideObjectPause.SetActive(false);
 

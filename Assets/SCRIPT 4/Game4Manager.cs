@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class Game4Manager : MonoBehaviour
 {
+    public Animator A1, GameOverAnim;
     [SerializeField] Texture2D cursorImage;
 
     [SerializeField] private GameObject KategoriSoal;
@@ -75,13 +76,17 @@ public class Game4Manager : MonoBehaviour
     }
     public void ResetGame()
     {
+        Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
-    void PermainanSelesai()
+    IEnumerator PermainanSelesai()
     {
         //Muncul Papan Game Over
         PapanGameOver.SetActive(true);
         _source.PlayOneShot(_gameover);
+        GameOverAnim.SetTrigger("Trigger");
+        yield return new WaitForSeconds(1.2f);
+        AudioListener.pause = true;
     }
 
     public void MulaiGame()
@@ -89,7 +94,7 @@ public class Game4Manager : MonoBehaviour
         //Permainan Selesai
         if (countSoal >= jumlahSoal)
         {
-            PermainanSelesai();
+            StartCoroutine(PermainanSelesai());
             return;
         }
 
@@ -128,6 +133,7 @@ public class Game4Manager : MonoBehaviour
         }
 
         //Soal Atas
+        A1.SetTrigger("Trigger");
         _source.PlayOneShot(suaraSoal[kategoriTerpilih]);
         KategoriSoal.gameObject.GetComponent<SpriteRenderer>().sprite = m_KategoriSoal[kategoriTerpilih];
         TulisanSoal.gameObject.GetComponent<SpriteRenderer>().sprite = m_TulisanSoal[kategoriTerpilih];
@@ -251,6 +257,7 @@ public class Game4Manager : MonoBehaviour
         AlertBenar.SetActive(true);
         yield return new WaitForSeconds(waktuNext);
         AlertBenar.SetActive(false);
+        A1.SetTrigger("Back_Anim");
         MulaiGame();
     }
 

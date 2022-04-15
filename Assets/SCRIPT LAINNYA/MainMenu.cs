@@ -23,7 +23,7 @@ public class MainMenu : MonoBehaviour
     IEnumerator LoadScenes(string sceneTerpilih)
     {
         transisi.SetTrigger("Start");
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.6f);
         AudioListener.pause = false;
         SceneManager.LoadScene(sceneTerpilih);
     }

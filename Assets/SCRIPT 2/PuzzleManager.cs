@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class PuzzleManager : MonoBehaviour
 {
+    public Animator A1, GameOverAnim;
     [SerializeField] Texture2D cursorImage;
 
     [SerializeField] private List<Sprite> SpriteHuruf;
@@ -36,13 +37,13 @@ public class PuzzleManager : MonoBehaviour
     private bool isSpawned = false;
     public int jumlahSoal = 10;
     private int countSoal = 0;
-    private float waktuNext = 1f;
+    private float waktuNext = 0.6f;
     public int antrian;
 
     [SerializeField] private Transform slotParent, pieceParent, posHewan;
     public GameObject hewan;
-    public GameObject[] semuaHewan;
-    //public AudioClip[] SuaraAbjad;
+    public Sprite[] m_semuaHewan;
+    [SerializeField] private AudioClip[] m_audioHewan;
 
     void Start()
     {
@@ -56,6 +57,7 @@ public class PuzzleManager : MonoBehaviour
     }
     public void ResetGame()
     {
+        Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
@@ -89,11 +91,14 @@ public class PuzzleManager : MonoBehaviour
         return index;
     }
 
-    void PermainanSelesai()
+    IEnumerator PermainanSelesai()
     {
         //Muncul Papan Game Over
         PapanGameOver.SetActive(true);
         _source.PlayOneShot(_gameover);
+        GameOverAnim.SetTrigger("Trigger");
+        yield return new WaitForSeconds(1.2f);
+        AudioListener.pause = true;
     }
 
     private int RandomAngka(List<string> listOfWords)
@@ -112,13 +117,6 @@ public class PuzzleManager : MonoBehaviour
 
     void Spawn()
     {
-        //Permainan Selesai
-        if (countSoal >= jumlahSoal)
-        {
-            PermainanSelesai();
-            return;
-        }
-
         antrian = 0;
 
         //Ini tinggal diganti sesuaiin nilai randomSumHuruf tinggal pake if else;
@@ -127,13 +125,10 @@ public class PuzzleManager : MonoBehaviour
         //Randoming Kata
         var AllWords = content.Split('\n');
         List<string> listOfWords = new List<string>(AllWords);
-        //string word = getRandomWord(listOfWords); //Dapat urutan kata random
 
         urutanTerpilih = RandomAngka(listOfWords);
-
         string word = listOfWords[urutanTerpilih];
 
-        //sudahMuncul[countSoal] = urutanTerpilih;
         listMuncul.Add(urutanTerpilih);
 
         //Jumlah Kata
@@ -144,12 +139,7 @@ public class PuzzleManager : MonoBehaviour
         string shuffledWord = new string(arraysShuffledWord); //"UDUK"
 
         // Munculin gambar hewan
-        Vector3 posHewan2 = hewan.transform.position;
-
-        Destroy(hewan.gameObject);
-        GameObject gambarHewan = Instantiate(semuaHewan[urutanTerpilih], posHewan2, Quaternion.identity);
-        hewan = gambarHewan;
-        
+        hewan.gameObject.GetComponent<SpriteRenderer>().sprite = m_semuaHewan[urutanTerpilih];
 
         //Convert string to array biar bisa di akses di looping bawah
         char[] arrayWord = word.ToCharArray(); //K,U,D,A
@@ -202,21 +192,33 @@ public class PuzzleManager : MonoBehaviour
 
     IEnumerator NextGame()
     {
-        yield return new WaitForSeconds(waktuNext-0.3f);
+        yield return new WaitForSeconds(0.7f);
 
         AlertBenar.SetActive(true);
-        _source.PlayOneShot(_benar);
+        
+        yield return new WaitForSeconds(0.4f);
+        _source.PlayOneShot(m_audioHewan[urutanTerpilih]);
+        A1.SetTrigger("Trigger");
 
-        yield return new WaitForSeconds(waktuNext);
+        yield return new WaitForSeconds(1.7f);
+        
+        //Permainan Selesai
+        if (countSoal >= jumlahSoal)
+        {
+            StartCoroutine(PermainanSelesai());
+        }
+        else
+        {
+            _source.PlayOneShot(_benar);
+            yield return new WaitForSeconds(waktuNext);
+            AlertBenar.SetActive(false);
 
-        AlertBenar.SetActive(false);
-
-        DestroyListSlots();
-        DestroyListPieces();
-        listPieces.Clear();
-        listSlots.Clear();
-        Spawn();
-
+            DestroyListSlots();
+            DestroyListPieces();
+            listPieces.Clear();
+            listSlots.Clear();
+            Spawn();
+        }
     }
 
     // Update is called once per frame

@@ -65,7 +65,7 @@ public class SubmitButton : MonoBehaviour
 
             AlertBenar.SetActive(true);
             
-            yield return new WaitForSeconds(0.7f);
+            yield return new WaitForSeconds(1.1f);
             _source.PlayOneShot(m_audioAngka[soal.firstValue - 1]);
             A1.SetTrigger("Trig_1");
             

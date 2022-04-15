@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class Soal : MonoBehaviour
 {
+    public Animator GameOverAnim;
     public Texture2D cursorImage, handCursor, dragCursor;
 
     public GameObject originalGameObject;
@@ -81,7 +82,17 @@ public class Soal : MonoBehaviour
 
     public void ResetGame()
     {
+        Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    IEnumerator PermainanSelesai()
+    {
+        PapanGameOver.SetActive(true);
+        _source.PlayOneShot(_gameover);
+        GameOverAnim.SetTrigger("Trigger");
+        yield return new WaitForSeconds(1.2f);
+        AudioListener.pause = true;
     }
 
     public void mulaiGame()
@@ -117,8 +128,8 @@ public class Soal : MonoBehaviour
             }
 
             //Muncul Papan Game Over
-            PapanGameOver.SetActive(true);
-            _source.PlayOneShot(_gameover);            
+            StartCoroutine(PermainanSelesai());
+
         }
     }
 
