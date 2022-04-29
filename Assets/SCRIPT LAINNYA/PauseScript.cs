@@ -42,7 +42,7 @@ public class PauseScript : MonoBehaviour
     void Stop()
     {
         PauseMenu.SetActive(true);
-        Time.timeScale = 0f;
+        //Time.timeScale = 0f;
         //IsPause = true;
         AudioListener.pause = true;
         if (HideObjectPause != null) HideObjectPause.SetActive(false);
